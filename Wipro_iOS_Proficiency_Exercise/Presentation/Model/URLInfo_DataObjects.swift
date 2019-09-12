@@ -16,6 +16,25 @@ struct URLInfo: Codable {
     var jsonURL: String
 }
 
+/**
+ JSONData is created according to the json structure
+ */
+struct JSONData: Codable {
+    var title: String
+    var rows: [RowDetails]
+}
+
+/**
+ RowDetails has been created according to the rows structure in json
+ */
+struct RowDetails: Codable {
+    var title: String?
+    var description: String?
+    var imageHref: String?
+}
+
+
+
 class URLInfo_DataObjects {
     /**
      Singleton instance
@@ -50,19 +69,28 @@ class URLInfo_DataObjects {
     }
     
     /**
-     To get the data from the url
+     Method get json from url and convert the json to JSONObject
      */
-    func getDataFromUrl() {
+    func getJSONDataObjectFromUrl(completionHandler: @escaping (_ jsonDataObject: JSONData?, _ error: Error?) -> Void) {
         let urlString = getUrlFromURLInfoPlist()
         if urlString != "",
             let url = URL.init(string: urlString) {
             URLSession.shared.dataTask(with: url) { (data, urlResponse, error) in
-                if let jsonData = data,
-                    let jsonString = String.init(data: jsonData, encoding: .utf8) {
-                    print("jsonString: \(jsonString)")
+                guard error == nil else {
+                    completionHandler(nil, error)
+                    return
                 }
+                guard let jsonData = data,
+                    let jsonString = String.init(data: jsonData, encoding: .ascii),
+                    let encodedDataValue = jsonString.data(using: .utf8),
+                    let jsonDataObject = try? JSONDecoder().decode(JSONData.self, from: encodedDataValue) else {
+                        completionHandler(nil, error)
+                        return
+                }
+                completionHandler(jsonDataObject, error)
             }.resume()
         }
     }
+    
 }
 
