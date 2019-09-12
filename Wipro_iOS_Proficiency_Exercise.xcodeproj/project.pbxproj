@@ -1,0 +1,591 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		544795C4232A229000E00ADD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 544795C3232A229000E00ADD /* AppDelegate.swift */; };
+		544795C6232A229000E00ADD /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 544795C5232A229000E00ADD /* ViewController.swift */; };
+		544795C9232A229000E00ADD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 544795C7232A229000E00ADD /* Main.storyboard */; };
+		544795CB232A229300E00ADD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 544795CA232A229300E00ADD /* Assets.xcassets */; };
+		544795CE232A229300E00ADD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 544795CC232A229300E00ADD /* LaunchScreen.storyboard */; };
+		544795D9232A229300E00ADD /* Wipro_iOS_Proficiency_ExerciseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 544795D8232A229300E00ADD /* Wipro_iOS_Proficiency_ExerciseTests.swift */; };
+		544795E4232A229300E00ADD /* Wipro_iOS_Proficiency_ExerciseUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 544795E3232A229300E00ADD /* Wipro_iOS_Proficiency_ExerciseUITests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		544795D5232A229300E00ADD /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 544795B8232A229000E00ADD /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 544795BF232A229000E00ADD;
+			remoteInfo = Wipro_iOS_Proficiency_Exercise;
+		};
+		544795E0232A229300E00ADD /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 544795B8232A229000E00ADD /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 544795BF232A229000E00ADD;
+			remoteInfo = Wipro_iOS_Proficiency_Exercise;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		544795C0232A229000E00ADD /* Wipro_iOS_Proficiency_Exercise.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Wipro_iOS_Proficiency_Exercise.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		544795C3232A229000E00ADD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		544795C5232A229000E00ADD /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		544795C8232A229000E00ADD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		544795CA232A229300E00ADD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		544795CD232A229300E00ADD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		544795CF232A229300E00ADD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		544795D4232A229300E00ADD /* Wipro_iOS_Proficiency_ExerciseTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Wipro_iOS_Proficiency_ExerciseTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		544795D8232A229300E00ADD /* Wipro_iOS_Proficiency_ExerciseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Wipro_iOS_Proficiency_ExerciseTests.swift; sourceTree = "<group>"; };
+		544795DA232A229300E00ADD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		544795DF232A229300E00ADD /* Wipro_iOS_Proficiency_ExerciseUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Wipro_iOS_Proficiency_ExerciseUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		544795E3232A229300E00ADD /* Wipro_iOS_Proficiency_ExerciseUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Wipro_iOS_Proficiency_ExerciseUITests.swift; sourceTree = "<group>"; };
+		544795E5232A229300E00ADD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		544795BD232A229000E00ADD /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		544795D1232A229300E00ADD /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		544795DC232A229300E00ADD /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		544795B7232A229000E00ADD = {
+			isa = PBXGroup;
+			children = (
+				544795C2232A229000E00ADD /* Wipro_iOS_Proficiency_Exercise */,
+				544795D7232A229300E00ADD /* Wipro_iOS_Proficiency_ExerciseTests */,
+				544795E2232A229300E00ADD /* Wipro_iOS_Proficiency_ExerciseUITests */,
+				544795C1232A229000E00ADD /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		544795C1232A229000E00ADD /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				544795C0232A229000E00ADD /* Wipro_iOS_Proficiency_Exercise.app */,
+				544795D4232A229300E00ADD /* Wipro_iOS_Proficiency_ExerciseTests.xctest */,
+				544795DF232A229300E00ADD /* Wipro_iOS_Proficiency_ExerciseUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		544795C2232A229000E00ADD /* Wipro_iOS_Proficiency_Exercise */ = {
+			isa = PBXGroup;
+			children = (
+				544795C3232A229000E00ADD /* AppDelegate.swift */,
+				544795C5232A229000E00ADD /* ViewController.swift */,
+				544795C7232A229000E00ADD /* Main.storyboard */,
+				544795CA232A229300E00ADD /* Assets.xcassets */,
+				544795CC232A229300E00ADD /* LaunchScreen.storyboard */,
+				544795CF232A229300E00ADD /* Info.plist */,
+			);
+			path = Wipro_iOS_Proficiency_Exercise;
+			sourceTree = "<group>";
+		};
+		544795D7232A229300E00ADD /* Wipro_iOS_Proficiency_ExerciseTests */ = {
+			isa = PBXGroup;
+			children = (
+				544795D8232A229300E00ADD /* Wipro_iOS_Proficiency_ExerciseTests.swift */,
+				544795DA232A229300E00ADD /* Info.plist */,
+			);
+			path = Wipro_iOS_Proficiency_ExerciseTests;
+			sourceTree = "<group>";
+		};
+		544795E2232A229300E00ADD /* Wipro_iOS_Proficiency_ExerciseUITests */ = {
+			isa = PBXGroup;
+			children = (
+				544795E3232A229300E00ADD /* Wipro_iOS_Proficiency_ExerciseUITests.swift */,
+				544795E5232A229300E00ADD /* Info.plist */,
+			);
+			path = Wipro_iOS_Proficiency_ExerciseUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		544795BF232A229000E00ADD /* Wipro_iOS_Proficiency_Exercise */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 544795E8232A229300E00ADD /* Build configuration list for PBXNativeTarget "Wipro_iOS_Proficiency_Exercise" */;
+			buildPhases = (
+				544795BC232A229000E00ADD /* Sources */,
+				544795BD232A229000E00ADD /* Frameworks */,
+				544795BE232A229000E00ADD /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Wipro_iOS_Proficiency_Exercise;
+			productName = Wipro_iOS_Proficiency_Exercise;
+			productReference = 544795C0232A229000E00ADD /* Wipro_iOS_Proficiency_Exercise.app */;
+			productType = "com.apple.product-type.application";
+		};
+		544795D3232A229300E00ADD /* Wipro_iOS_Proficiency_ExerciseTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 544795EB232A229300E00ADD /* Build configuration list for PBXNativeTarget "Wipro_iOS_Proficiency_ExerciseTests" */;
+			buildPhases = (
+				544795D0232A229300E00ADD /* Sources */,
+				544795D1232A229300E00ADD /* Frameworks */,
+				544795D2232A229300E00ADD /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				544795D6232A229300E00ADD /* PBXTargetDependency */,
+			);
+			name = Wipro_iOS_Proficiency_ExerciseTests;
+			productName = Wipro_iOS_Proficiency_ExerciseTests;
+			productReference = 544795D4232A229300E00ADD /* Wipro_iOS_Proficiency_ExerciseTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		544795DE232A229300E00ADD /* Wipro_iOS_Proficiency_ExerciseUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 544795EE232A229300E00ADD /* Build configuration list for PBXNativeTarget "Wipro_iOS_Proficiency_ExerciseUITests" */;
+			buildPhases = (
+				544795DB232A229300E00ADD /* Sources */,
+				544795DC232A229300E00ADD /* Frameworks */,
+				544795DD232A229300E00ADD /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				544795E1232A229300E00ADD /* PBXTargetDependency */,
+			);
+			name = Wipro_iOS_Proficiency_ExerciseUITests;
+			productName = Wipro_iOS_Proficiency_ExerciseUITests;
+			productReference = 544795DF232A229300E00ADD /* Wipro_iOS_Proficiency_ExerciseUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		544795B8232A229000E00ADD /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1030;
+				LastUpgradeCheck = 1030;
+				ORGANIZATIONNAME = "Sri Divya Bolla";
+				TargetAttributes = {
+					544795BF232A229000E00ADD = {
+						CreatedOnToolsVersion = 10.3;
+					};
+					544795D3232A229300E00ADD = {
+						CreatedOnToolsVersion = 10.3;
+						TestTargetID = 544795BF232A229000E00ADD;
+					};
+					544795DE232A229300E00ADD = {
+						CreatedOnToolsVersion = 10.3;
+						TestTargetID = 544795BF232A229000E00ADD;
+					};
+				};
+			};
+			buildConfigurationList = 544795BB232A229000E00ADD /* Build configuration list for PBXProject "Wipro_iOS_Proficiency_Exercise" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 544795B7232A229000E00ADD;
+			productRefGroup = 544795C1232A229000E00ADD /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				544795BF232A229000E00ADD /* Wipro_iOS_Proficiency_Exercise */,
+				544795D3232A229300E00ADD /* Wipro_iOS_Proficiency_ExerciseTests */,
+				544795DE232A229300E00ADD /* Wipro_iOS_Proficiency_ExerciseUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		544795BE232A229000E00ADD /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				544795CE232A229300E00ADD /* LaunchScreen.storyboard in Resources */,
+				544795CB232A229300E00ADD /* Assets.xcassets in Resources */,
+				544795C9232A229000E00ADD /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		544795D2232A229300E00ADD /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		544795DD232A229300E00ADD /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		544795BC232A229000E00ADD /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				544795C6232A229000E00ADD /* ViewController.swift in Sources */,
+				544795C4232A229000E00ADD /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		544795D0232A229300E00ADD /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				544795D9232A229300E00ADD /* Wipro_iOS_Proficiency_ExerciseTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		544795DB232A229300E00ADD /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				544795E4232A229300E00ADD /* Wipro_iOS_Proficiency_ExerciseUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		544795D6232A229300E00ADD /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 544795BF232A229000E00ADD /* Wipro_iOS_Proficiency_Exercise */;
+			targetProxy = 544795D5232A229300E00ADD /* PBXContainerItemProxy */;
+		};
+		544795E1232A229300E00ADD /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 544795BF232A229000E00ADD /* Wipro_iOS_Proficiency_Exercise */;
+			targetProxy = 544795E0232A229300E00ADD /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		544795C7232A229000E00ADD /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				544795C8232A229000E00ADD /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		544795CC232A229300E00ADD /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				544795CD232A229300E00ADD /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		544795E6232A229300E00ADD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		544795E7232A229300E00ADD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		544795E9232A229300E00ADD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = C9CPUQRJEY;
+				INFOPLIST_FILE = Wipro_iOS_Proficiency_Exercise/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.srdbolla.Wipro-iOS-Proficiency-Exercise";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		544795EA232A229300E00ADD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = C9CPUQRJEY;
+				INFOPLIST_FILE = Wipro_iOS_Proficiency_Exercise/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.srdbolla.Wipro-iOS-Proficiency-Exercise";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		544795EC232A229300E00ADD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = C9CPUQRJEY;
+				INFOPLIST_FILE = Wipro_iOS_Proficiency_ExerciseTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.srdbolla.Wipro-iOS-Proficiency-ExerciseTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Wipro_iOS_Proficiency_Exercise.app/Wipro_iOS_Proficiency_Exercise";
+			};
+			name = Debug;
+		};
+		544795ED232A229300E00ADD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = C9CPUQRJEY;
+				INFOPLIST_FILE = Wipro_iOS_Proficiency_ExerciseTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.srdbolla.Wipro-iOS-Proficiency-ExerciseTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Wipro_iOS_Proficiency_Exercise.app/Wipro_iOS_Proficiency_Exercise";
+			};
+			name = Release;
+		};
+		544795EF232A229300E00ADD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = C9CPUQRJEY;
+				INFOPLIST_FILE = Wipro_iOS_Proficiency_ExerciseUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.srdbolla.Wipro-iOS-Proficiency-ExerciseUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Wipro_iOS_Proficiency_Exercise;
+			};
+			name = Debug;
+		};
+		544795F0232A229300E00ADD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = C9CPUQRJEY;
+				INFOPLIST_FILE = Wipro_iOS_Proficiency_ExerciseUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.srdbolla.Wipro-iOS-Proficiency-ExerciseUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Wipro_iOS_Proficiency_Exercise;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		544795BB232A229000E00ADD /* Build configuration list for PBXProject "Wipro_iOS_Proficiency_Exercise" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				544795E6232A229300E00ADD /* Debug */,
+				544795E7232A229300E00ADD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		544795E8232A229300E00ADD /* Build configuration list for PBXNativeTarget "Wipro_iOS_Proficiency_Exercise" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				544795E9232A229300E00ADD /* Debug */,
+				544795EA232A229300E00ADD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		544795EB232A229300E00ADD /* Build configuration list for PBXNativeTarget "Wipro_iOS_Proficiency_ExerciseTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				544795EC232A229300E00ADD /* Debug */,
+				544795ED232A229300E00ADD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		544795EE232A229300E00ADD /* Build configuration list for PBXNativeTarget "Wipro_iOS_Proficiency_ExerciseUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				544795EF232A229300E00ADD /* Debug */,
+				544795F0232A229300E00ADD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 544795B8232A229000E00ADD /* Project object */;
+}
