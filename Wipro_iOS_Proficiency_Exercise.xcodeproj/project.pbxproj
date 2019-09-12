@@ -14,6 +14,8 @@
 		544795CE232A229300E00ADD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 544795CC232A229300E00ADD /* LaunchScreen.storyboard */; };
 		544795D9232A229300E00ADD /* Wipro_iOS_Proficiency_ExerciseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 544795D8232A229300E00ADD /* Wipro_iOS_Proficiency_ExerciseTests.swift */; };
 		544795E4232A229300E00ADD /* Wipro_iOS_Proficiency_ExerciseUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 544795E3232A229300E00ADD /* Wipro_iOS_Proficiency_ExerciseUITests.swift */; };
+		544795F8232A245F00E00ADD /* URLInfo.plist in Resources */ = {isa = PBXBuildFile; fileRef = 544795F7232A245F00E00ADD /* URLInfo.plist */; };
+		544795FA232A249E00E00ADD /* URLInfo_DataObjects.swift in Sources */ = {isa = PBXBuildFile; fileRef = 544795F9232A249E00E00ADD /* URLInfo_DataObjects.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +49,8 @@
 		544795DF232A229300E00ADD /* Wipro_iOS_Proficiency_ExerciseUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Wipro_iOS_Proficiency_ExerciseUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		544795E3232A229300E00ADD /* Wipro_iOS_Proficiency_ExerciseUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Wipro_iOS_Proficiency_ExerciseUITests.swift; sourceTree = "<group>"; };
 		544795E5232A229300E00ADD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		544795F7232A245F00E00ADD /* URLInfo.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = URLInfo.plist; sourceTree = "<group>"; };
+		544795F9232A249E00E00ADD /* URLInfo_DataObjects.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLInfo_DataObjects.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -127,6 +131,7 @@
 			isa = PBXGroup;
 			children = (
 				544795CA232A229300E00ADD /* Assets.xcassets */,
+				544795F7232A245F00E00ADD /* URLInfo.plist */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -169,6 +174,7 @@
 		544795F6232A239300E00ADD /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				544795F9232A249E00E00ADD /* URLInfo_DataObjects.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -279,6 +285,7 @@
 			files = (
 				544795CE232A229300E00ADD /* LaunchScreen.storyboard in Resources */,
 				544795CB232A229300E00ADD /* Assets.xcassets in Resources */,
+				544795F8232A245F00E00ADD /* URLInfo.plist in Resources */,
 				544795C9232A229000E00ADD /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -304,6 +311,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				544795FA232A249E00E00ADD /* URLInfo_DataObjects.swift in Sources */,
 				544795C6232A229000E00ADD /* ViewController.swift in Sources */,
 				544795C4232A229000E00ADD /* AppDelegate.swift in Sources */,
 			);
