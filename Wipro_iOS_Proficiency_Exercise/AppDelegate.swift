@@ -16,6 +16,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        self.addingNavigationController()
         return true
     }
 
@@ -44,3 +45,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 }
 
+extension AppDelegate {
+    
+    /**
+     Method to embed ViewController in NavigationController
+     */
+    func addingNavigationController() {
+        self.window = UIWindow.init(frame: UIScreen.main.bounds)
+        let navigationController = UINavigationController()
+        let viewController = ViewController()
+        navigationController.viewControllers = [viewController]
+        self.window?.rootViewController = navigationController
+        self.window?.makeKeyAndVisible()
+    }
+}
