@@ -65,5 +65,9 @@ class TableViewCellViewModel {
         self.imageURL.value = rowDetail.imageURL
         self.title.value = rowDetail.titleValue
         self.description.value = rowDetail.descriptionValue
+        
+        if URLInfo_DataObjects.shared.isRefreshing == true {
+            self.imageDownloaded.value = false
+        }
     }
 }

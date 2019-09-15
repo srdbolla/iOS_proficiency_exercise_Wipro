@@ -14,6 +14,14 @@ class ViewController: UIViewController {
      Variables
     */
     var tableView: UITableView?
+    
+    lazy var refreshControl: UIRefreshControl = {
+        let refreshControl: UIRefreshControl = UIRefreshControl.init()
+        refreshControl.addTarget(self, action: #selector(handleRefresh(refreshControl:)), for: UIControl.Event.valueChanged)
+        refreshControl.tintColor = UIColor.gray
+        return refreshControl
+    }()
+    
     var viewModel = ViewModel.shared
     
     /**
@@ -32,17 +40,19 @@ class ViewController: UIViewController {
         
         configureTableView()
         configureNavigationBar()
-        configureViewModel()
+        configureViewModel {_ in }
     }
     
-    func configureViewModel() {
+    func configureViewModel(_ completion: @escaping (Bool) -> Void) {
         viewModel.callAssignDataCompletionBlock { [weak self] (boolean) in
             if boolean == true {
                 DispatchQueue.main.async {
                     self?.tableView?.reloadData()
+                    completion(true)
                 }
             } else {
                 self?.showErrorAlert(title: Constants.errorTitle, message: "")
+                completion(false)
             }
         }
     }
@@ -77,17 +87,21 @@ class ViewController: UIViewController {
         }
         self.tableView?.reloadData()
 
-        
-        
         tableView?.register(TableViewCell.self, forCellReuseIdentifier: TableViewCell.Constants.identifier)
         
         tableView?.estimatedRowHeight = 120.0
         tableView?.rowHeight = UITableView.automaticDimension
         
-        
         addTableViewConstraints()
-
-
+        self.tableView?.addSubview(refreshControl)
+    }
+    
+    @objc func handleRefresh(refreshControl: UIRefreshControl) {
+        URLInfo_DataObjects.shared.isRefreshing = true
+        configureViewModel { _ in
+            refreshControl.endRefreshing()
+            URLInfo_DataObjects.shared.isRefreshing = false
+        }
     }
     
     func addTableViewConstraints() {

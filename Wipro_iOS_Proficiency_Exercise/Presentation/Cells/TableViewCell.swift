@@ -68,7 +68,9 @@ class TableViewCell: UITableViewCell {
         assignValues(tableViewCellModel: tableViewCellModel)
         
         tableViewCellModel?.imageURL.bind { (imageURL) in
-            self.downloadAndDisplayImage(tableViewCellModel: tableViewCellModel)
+            DispatchQueue.main.async {
+                self.downloadAndDisplayImage(tableViewCellModel: tableViewCellModel)
+            }
         }
 
         tableViewCellModel?.title.bind({ [weak self] (titleValue) in
@@ -190,10 +192,7 @@ extension TableViewCell {
         if let nonNilCellImageView = cellImageView {
             let marginGuide = contentView.layoutMarginsGuide
             
-            let leadingOrTrailingImageViewConstant: CGFloat = CGFloat((UIScreen.main.bounds.width - (Constants.imageViewWidth))/2)
-            
             nonNilCellImageView.centerXAnchor.constraint(equalTo: marginGuide.centerXAnchor).isActive = true
-            
             nonNilCellImageView.widthAnchor.constraint(equalToConstant: Constants.imageViewWidth).isActive = true
             nonNilCellImageView.heightAnchor.constraint(equalToConstant: Constants.imageViewHeight).isActive = true
             nonNilCellImageView.topAnchor.constraint(greaterThanOrEqualTo: marginGuide.topAnchor, constant: Constants.edgesAnchorConstantValue).isActive = true

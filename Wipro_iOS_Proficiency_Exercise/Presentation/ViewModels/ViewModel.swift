@@ -40,8 +40,19 @@ class ViewModel {
             if let jsonDataObject = jsonData {
                 self?.titleValue.value = jsonDataObject.title
                 for rowDetail in jsonDataObject.rows {
-                    let tableViewCellModel: TableViewCellViewModel = TableViewCellViewModel.init(rowDetail: rowDetail)
-                    self?.tableViewCellViewModels.append(tableViewCellModel)
+                    
+                    let tableViewCellModelAlreadyExists = self?.tableViewCellViewModels.contains(where: { (tableViewCellModel) -> Bool in
+                        if (tableViewCellModel.title.value == rowDetail.titleValue) && (tableViewCellModel.description.value == rowDetail.descriptionValue) && (tableViewCellModel.imageURL.value == rowDetail.imageURL) {
+                            tableViewCellModel.updateValues(rowDetail: rowDetail)
+                            return true
+                        }
+                        return false
+                    })
+                    
+                    if tableViewCellModelAlreadyExists == false {
+                        let tableViewCellModel: TableViewCellViewModel = TableViewCellViewModel.init(rowDetail: rowDetail)
+                        self?.tableViewCellViewModels.append(tableViewCellModel)
+                    }
                 }
                 completionHandler(true)
             } else {
@@ -49,5 +60,4 @@ class ViewModel {
             }
         }
     }
-
 }

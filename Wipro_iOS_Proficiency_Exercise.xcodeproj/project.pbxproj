@@ -148,11 +148,11 @@
 			isa = PBXGroup;
 			children = (
 				544795FE232A75B700E00ADD /* Utility */,
-				544795FB232A2D9C00E00ADD /* Cells */,
 				544795F6232A239300E00ADD /* Model */,
-				544795F5232A238300E00ADD /* Views */,
 				544795F4232A237300E00ADD /* ViewModels */,
+				544795FB232A2D9C00E00ADD /* Cells */,
 				544795F3232A235F00E00ADD /* ViewControllers */,
+				544795F5232A238300E00ADD /* Views */,
 			);
 			path = Presentation;
 			sourceTree = "<group>";

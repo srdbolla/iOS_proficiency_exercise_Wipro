@@ -36,6 +36,9 @@ struct RowDetails: Codable {
 
 
 class URLInfo_DataObjects {
+    
+    var isRefreshing: Bool = false
+
     /**
      Singleton instance
      */
