@@ -9,24 +9,21 @@
 import Foundation
 
 class Dynamic<T> {
-    
+
     public var value: T? {
-        didSet {
-            if let value = value {
-                listener?(value)
-            }
+        willSet {
+            listener?(newValue)
         }
     }
-    
+
     typealias Listener = (T?) -> Void
     var listener: Listener?
 
     init(_ value: T?) {
         self.value = value
-        listener?(nil)
     }
-    
-    func bind(_ listener: @escaping Listener) {
-        listener(self.value)
+
+    func bind(_ listenerValue: @escaping Listener) {
+        self.listener = listenerValue
     }
 }

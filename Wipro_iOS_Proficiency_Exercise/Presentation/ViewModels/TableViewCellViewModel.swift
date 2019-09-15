@@ -50,13 +50,20 @@ class TableViewCellViewModel {
     var title: Dynamic<String> = Dynamic("")
     var description: Dynamic<String> = Dynamic("")
     
+    var imageData: Dynamic<Data> = Dynamic(Data.init())
+    var imageDownloaded: Dynamic<Bool> = Dynamic(false)
+    
     init(rowDetail: RowDetails) {
+        
+        self.imageURL = Dynamic(rowDetail.imageURL)
+        self.title = Dynamic(rowDetail.titleValue)
+        self.description = Dynamic(rowDetail.descriptionValue)
         updateValues(rowDetail: rowDetail)
     }
     
     func updateValues(rowDetail: RowDetails) {
-        self.imageURL = Dynamic(rowDetail.imageURL)
-        self.title = Dynamic(rowDetail.titleValue)
-        self.description = Dynamic(rowDetail.descriptionValue)
+        self.imageURL.value = rowDetail.imageURL
+        self.title.value = rowDetail.titleValue
+        self.description.value = rowDetail.descriptionValue
     }
 }

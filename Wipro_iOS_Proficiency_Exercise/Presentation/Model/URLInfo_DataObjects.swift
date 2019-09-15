@@ -75,7 +75,7 @@ class URLInfo_DataObjects {
         let urlString = getUrlFromURLInfoPlist()
         if urlString != "",
             let url = URL.init(string: urlString) {
-            URLSession.shared.dataTask(with: url) { (data, urlResponse, error) in
+            getData(from: url) { (data, urlResponse, error) in
                 guard error == nil else {
                     completionHandler(nil, error)
                     return
@@ -88,7 +88,21 @@ class URLInfo_DataObjects {
                         return
                 }
                 completionHandler(jsonDataObject, error)
-            }.resume()
+            }
+        }
+    }
+    
+    func getData(from url: URL, completion: @escaping (Data?, URLResponse?, Error?) -> ()) {
+        URLSession.shared.dataTask(with: url, completionHandler: completion).resume()
+    }
+    
+    func downloadImage(from urlString: String, completion: @escaping (Data?, Error?)-> Void) {
+        if let url = URL.init(string: urlString) {
+            URLInfo_DataObjects.shared.getData(from: url) { (data, response, error) in
+                completion(data, error)
+            }
+        } else {
+            completion(nil, nil)
         }
     }
     

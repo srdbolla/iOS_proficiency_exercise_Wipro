@@ -36,12 +36,12 @@ class ViewModel {
     }
     
     func callAssignDataCompletionBlock(completionHandler: @escaping (Bool) -> Void) {
-        callProviderCompletionBlock { (jsonData, error) in
+        callProviderCompletionBlock { [weak self](jsonData, error) in
             if let jsonDataObject = jsonData {
-                self.titleValue = Dynamic(jsonDataObject.title)
+                self?.titleValue.value = jsonDataObject.title
                 for rowDetail in jsonDataObject.rows {
                     let tableViewCellModel: TableViewCellViewModel = TableViewCellViewModel.init(rowDetail: rowDetail)
-                    self.tableViewCellViewModels.append(tableViewCellModel)
+                    self?.tableViewCellViewModels.append(tableViewCellModel)
                 }
                 completionHandler(true)
             } else {

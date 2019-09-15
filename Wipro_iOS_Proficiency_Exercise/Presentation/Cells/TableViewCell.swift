@@ -16,20 +16,25 @@ class TableViewCell: UITableViewCell {
     
     var imageActivityIndicator: UIActivityIndicatorView?
     
+    var tableViewCellModel: TableViewCellViewModel?
     
     /**
      Constants
     */
     enum Constants {
-        static let imageViewHeight: CGFloat = 40.0
-        static let imageViewWidth: CGFloat = 40.0
+        static let imageViewHeight: CGFloat = 300.0
+        static let imageViewWidth: CGFloat = 300.0
         
         static let multiplerValue: CGFloat = 1.0
         static let constantValue: CGFloat = 0.0
         
-        static let edgesAnchorConstantValue: CGFloat = 20.0
+        static let edgesAnchorConstantValue: CGFloat = 5.0
         
         static let identifier: String = "TableViewCell"
+        
+        static let noImageName: String = "no_image"
+        static let error404ImageName: String = "404_error"
+        
     }
     
     override func awakeFromNib() {
@@ -37,114 +42,203 @@ class TableViewCell: UITableViewCell {
         // Initialization code
         
     }
-
+    
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        configureSubviewsAndConstraints()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+    }
+    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
     }
     
-    func assignData(tableViewCellModel: TableViewCellViewModel) {
-        tableViewCellModel.imageURL.bind({ [weak self] (imageURL) in
-            if let nonNilImageURL = imageURL {
-                
+    func assignValues(tableViewCellModel: TableViewCellViewModel?) {
+        self.titleLabel?.text = tableViewCellModel?.title.value
+        self.descriptionLabel?.text = tableViewCellModel?.description.value
+        downloadAndDisplayImage(tableViewCellModel: tableViewCellModel)
+    }
+    
+    func assignData(tableViewCellModel: TableViewCellViewModel?) {
+        assignValues(tableViewCellModel: tableViewCellModel)
+        
+        tableViewCellModel?.imageURL.bind { (imageURL) in
+            self.downloadAndDisplayImage(tableViewCellModel: tableViewCellModel)
+        }
+
+        tableViewCellModel?.title.bind({ [weak self] (titleValue) in
+            DispatchQueue.main.async {
+                self?.titleLabel?.text = titleValue ?? "No title from server"
             }
         })
-        
-        tableViewCellModel.title.bind({ [weak self] (titleValue) in
-            self?.titleLabel?.text = titleValue ?? ""
+
+        tableViewCellModel?.description.bind({ [weak self] (descriptionValue) in
+            DispatchQueue.main.async {
+                self?.descriptionLabel?.text = descriptionValue ?? "No description from server"
+            }
         })
+    }
+    
+    func downloadAndDisplayImage(tableViewCellModel: TableViewCellViewModel?) {
         
-        tableViewCellModel.description.bind({ [weak self] (descriptionValue) in
-            self?.descriptionLabel?.text = descriptionValue ?? ""
-        })
+        if tableViewCellModel?.imageDownloaded.value == false {
+            imageActivityIndicator?.color = UIColor.black
+            imageActivityIndicator?.startAnimating()
+            imageActivityIndicator?.isHidden = false
+
+            URLInfo_DataObjects.shared.downloadImage(from: tableViewCellModel?.imageURL.value ?? "", completion: { [weak self] (data, error) in
+                
+                tableViewCellModel?.imageDownloaded.value = true
+                tableViewCellModel?.imageData.value = data
+                
+                guard error == nil else {
+                    self?.stopActivityIndicatorAndAssignImageView(with: UIImage.init(named: Constants.error404ImageName), self)
+                    return
+                }
+                
+                guard let imageData = data else {
+                    self?.stopActivityIndicatorAndAssignImageView(with: UIImage.init(named: Constants.noImageName), self)
+                    return
+                }
+                
+                guard let imageFromData = UIImage.init(data: imageData) else {
+                    self?.stopActivityIndicatorAndAssignImageView(with: UIImage.init(named: Constants.error404ImageName), self)
+                    return
+                }
+                
+                self?.stopActivityIndicatorAndAssignImageView(with: imageFromData, self)
+            })
+        } else {
+            guard let imageData = tableViewCellModel?.imageData.value else {
+                self.stopActivityIndicatorAndAssignImageView(with: UIImage.init(named: Constants.noImageName), self)
+                return
+            }
+            
+            guard let imageFromData = UIImage.init(data: imageData) else {
+                self.stopActivityIndicatorAndAssignImageView(with: UIImage.init(named: Constants.error404ImageName), self)
+                return
+            }
+            
+            self.stopActivityIndicatorAndAssignImageView(with: imageFromData, self)
+
+        }
+    }
+    
+    func stopActivityIndicatorAndAssignImageView(with image: UIImage?, _ weakSelf: TableViewCell?) {
+        DispatchQueue.main.async {
+            weakSelf?.cellImageView?.image = image
+            weakSelf?.imageActivityIndicator?.stopAnimating()
+            weakSelf?.imageActivityIndicator?.isHidden = true
+        }
     }
 }
 
 extension TableViewCell {
-    func configureSubviews() {
-        configureImageViewAndConstraints()
-        configureTitleLabelAndConstraints()
-        configureDescriptionLabelAndConstraints()
+    func configureSubviewsAndConstraints() {
+        initializeVariablesAndAddToView()
+        addToView()
+        initializeConstraintsForVariables()
+        configureImageViewConstraints()
+        configureTitleLabelConstraints()
+        configureDescriptionLabelConstraints()
         configureImageActivityIndicatorView()
     }
     
-    func configureImageViewAndConstraints() {
+    func initializeVariablesAndAddToView() {
         self.cellImageView = UIImageView()
         self.titleLabel = UILabel()
         self.descriptionLabel = UILabel()
         self.imageActivityIndicator = UIActivityIndicatorView.init()
         
-        if let nonNilCellImageView = cellImageView {
-            self.contentView.addSubview(nonNilCellImageView)
-        }
-        if let nonNilTitleLabel = titleLabel {
-            self.contentView.addSubview(nonNilTitleLabel)
-        }
-        if let nonNilDescriptionLabel = descriptionLabel {
-            self.contentView.addSubview(nonNilDescriptionLabel)
-        }
-        if let nonNilImageActivityIndicator = imageActivityIndicator {
-            self.contentView.addSubview(nonNilImageActivityIndicator)
-        }
         
+    }
+    
+    func addToView() {
+        if let nonNilCellImageView = cellImageView,
+            !self.contentView.contains(nonNilCellImageView) {
+            self.contentView.addSubview(cellImageView ?? nonNilCellImageView)
+        }
+        if let nonNilTitleLabel = titleLabel,
+            !self.contentView.contains(nonNilTitleLabel) {
+            self.contentView.addSubview(titleLabel ?? nonNilTitleLabel)
+            nonNilTitleLabel.numberOfLines = 0
+        }
+        if let nonNilDescriptionLabel = descriptionLabel,
+            !self.contentView.contains(nonNilDescriptionLabel) {
+            self.contentView.addSubview(descriptionLabel ?? nonNilDescriptionLabel)
+            nonNilDescriptionLabel.numberOfLines = 0
+        }
+        if let nonNilImageActivityIndicator = imageActivityIndicator,
+            !self.contentView.contains(nonNilImageActivityIndicator) {
+            self.contentView.addSubview(imageActivityIndicator ?? nonNilImageActivityIndicator)
+        }
+    }
+    
+    func initializeConstraintsForVariables() {
+        cellImageView?.translatesAutoresizingMaskIntoConstraints = false
+        titleLabel?.translatesAutoresizingMaskIntoConstraints = false
+        descriptionLabel?.translatesAutoresizingMaskIntoConstraints = false
+        imageActivityIndicator?.translatesAutoresizingMaskIntoConstraints = false
+    }
+    
+    func configureImageViewConstraints() {
         if let nonNilCellImageView = cellImageView {
-            let cellImageViewConstraints: [NSLayoutConstraint] = [
-                nonNilCellImageView.centerYAnchor.constraint(equalTo: self.contentView.centerYAnchor),
-                nonNilCellImageView.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor, constant: Constants.edgesAnchorConstantValue),
-                nonNilCellImageView.widthAnchor.constraint(equalToConstant: Constants.imageViewWidth),
-                nonNilCellImageView.heightAnchor.constraint(equalToConstant: Constants.imageViewHeight)
-            ]
-            NSLayoutConstraint.deactivate(cellImageViewConstraints)
-            NSLayoutConstraint.activate(cellImageViewConstraints)
-        }
-    }
-    
-    func configureTitleLabelAndConstraints() {
-        if let nonNilTitleLabel = titleLabel {
-            var titleLabelLayoutConstraints: [NSLayoutConstraint] = [
-                nonNilTitleLabel.topAnchor.constraint(greaterThanOrEqualTo: self.contentView.topAnchor, constant: Constants.edgesAnchorConstantValue),
-                nonNilTitleLabel.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor, constant: Constants.edgesAnchorConstantValue)
-            ]
-            if let nonNilCellImageView = cellImageView {
-                titleLabelLayoutConstraints.append(nonNilTitleLabel.leadingAnchor.constraint(equalTo: nonNilCellImageView.trailingAnchor, constant: Constants.edgesAnchorConstantValue))
-            }
-            if let nonNilDescriptionLabel = descriptionLabel {
-                titleLabelLayoutConstraints.append(nonNilTitleLabel.widthAnchor.constraint(equalTo: nonNilDescriptionLabel.widthAnchor, multiplier: Constants.multiplerValue))
-            }
-            NSLayoutConstraint.deactivate(titleLabelLayoutConstraints)
-            NSLayoutConstraint.activate(titleLabelLayoutConstraints)
-        }
-    }
-    
-    func configureDescriptionLabelAndConstraints() {
-        if let nonNilDescriptionLabel = self.descriptionLabel {
-            var descriptionLabelLayoutConstraints: [NSLayoutConstraint] = [
-                nonNilDescriptionLabel.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor, constant: Constants.edgesAnchorConstantValue),
-                nonNilDescriptionLabel.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor, constant: Constants.edgesAnchorConstantValue)
-            ]
-            if let nonNilTitleLabel = self.titleLabel {
-                descriptionLabelLayoutConstraints.append(nonNilDescriptionLabel.topAnchor.constraint(equalTo: nonNilTitleLabel.bottomAnchor, constant: Constants.edgesAnchorConstantValue))
-            }
-            if let nonNilCellImageView = cellImageView {
-                descriptionLabelLayoutConstraints.append(nonNilDescriptionLabel.leadingAnchor.constraint(equalTo: nonNilCellImageView.trailingAnchor, constant: Constants.edgesAnchorConstantValue))
-            }
-            NSLayoutConstraint.deactivate(descriptionLabelLayoutConstraints)
-            NSLayoutConstraint.activate(descriptionLabelLayoutConstraints)
+            let marginGuide = contentView.layoutMarginsGuide
+            
+            let leadingOrTrailingImageViewConstant: CGFloat = CGFloat((UIScreen.main.bounds.width - (Constants.imageViewWidth))/2)
+            
+            nonNilCellImageView.centerXAnchor.constraint(equalTo: marginGuide.centerXAnchor).isActive = true
+            
+            nonNilCellImageView.widthAnchor.constraint(equalToConstant: Constants.imageViewWidth).isActive = true
+            nonNilCellImageView.heightAnchor.constraint(equalToConstant: Constants.imageViewHeight).isActive = true
+            nonNilCellImageView.topAnchor.constraint(greaterThanOrEqualTo: marginGuide.topAnchor, constant: Constants.edgesAnchorConstantValue).isActive = true
             
         }
-        
+    }
+    
+    
+    func configureTitleLabelConstraints() {
+        if let nonNilTitleLabel = titleLabel {
+            let marginGuide = contentView.layoutMarginsGuide
+            
+            nonNilTitleLabel.leadingAnchor.constraint(equalTo: marginGuide.leadingAnchor, constant: Constants.edgesAnchorConstantValue).isActive = true
+            nonNilTitleLabel.trailingAnchor.constraint(equalTo: marginGuide.trailingAnchor, constant: Constants.edgesAnchorConstantValue).isActive = true
+            
+            if let nonNilCellImageView = cellImageView {
+                nonNilTitleLabel.topAnchor.constraint(equalTo: nonNilCellImageView.bottomAnchor, constant: Constants.edgesAnchorConstantValue).isActive = true
+            }
+            if let nonNilDescriptionLabel = descriptionLabel {
+                nonNilTitleLabel.bottomAnchor.constraint(equalTo: nonNilDescriptionLabel.topAnchor, constant: Constants.edgesAnchorConstantValue).isActive = true
+            }
+            
+            let widthConstant = UIScreen.main.bounds.width - ((Constants.edgesAnchorConstantValue*2))
+            nonNilTitleLabel.widthAnchor.constraint(equalToConstant: widthConstant).isActive = true
+        }
+    }
+    
+    func configureDescriptionLabelConstraints() {
+        if let nonNilDescriptionLabel = self.descriptionLabel {
+            let marginGuide = contentView.layoutMarginsGuide
+            if let nonNilTitleLabel = self.titleLabel {
+                nonNilDescriptionLabel.leadingAnchor.constraint(equalTo: nonNilTitleLabel.leadingAnchor).isActive = true
+                nonNilDescriptionLabel.trailingAnchor.constraint(equalTo: nonNilTitleLabel.trailingAnchor).isActive = true
+                nonNilDescriptionLabel.widthAnchor.constraint(equalTo: nonNilTitleLabel.widthAnchor).isActive = true
+            }
+            
+            nonNilDescriptionLabel.bottomAnchor.constraint(equalTo: marginGuide.bottomAnchor, constant: Constants.edgesAnchorConstantValue).isActive = true
+        }
     }
     
     func configureImageActivityIndicatorView() {
         if let nonImageActivityIndicator = self.imageActivityIndicator,
             let nonNilCellImageView = cellImageView {
-            let activityIndicatorLayoutConstraints: [NSLayoutConstraint] = [
-                nonImageActivityIndicator.centerXAnchor.constraint(equalTo: nonNilCellImageView.centerXAnchor),
-                nonImageActivityIndicator.centerYAnchor.constraint(equalTo: nonNilCellImageView.centerYAnchor)
-            ]
-            NSLayoutConstraint.deactivate(activityIndicatorLayoutConstraints)
-            NSLayoutConstraint.activate(activityIndicatorLayoutConstraints)
+            nonImageActivityIndicator.centerXAnchor.constraint(equalTo: nonNilCellImageView.centerXAnchor).isActive = true
+            nonImageActivityIndicator.centerYAnchor.constraint(equalTo: nonNilCellImageView.centerYAnchor).isActive = true
         }
     }
     

@@ -39,7 +39,6 @@ class ViewController: UIViewController {
         viewModel.callAssignDataCompletionBlock { [weak self] (boolean) in
             if boolean == true {
                 DispatchQueue.main.async {
-                    self?.configureNavigationBar()
                     self?.tableView?.reloadData()
                 }
             } else {
@@ -50,7 +49,9 @@ class ViewController: UIViewController {
     
     func configureNavigationBar() {
         viewModel.titleValue.bind { [weak self] (titleValue) in
-            self?.navigationController?.navigationBar.topItem?.title = titleValue ?? ""
+            DispatchQueue.main.async {
+                self?.navigationController?.navigationBar.topItem?.title = titleValue ?? ""
+            }
         }
     }
     
@@ -63,7 +64,7 @@ class ViewController: UIViewController {
         let tableViewHeight = viewFrameHeight - Constants.tableViewY
         
         //Initializing tableView
-        self.tableView = UITableView.init(frame: CGRect.init(x: Constants.tableViewX, y: Constants.tableViewY, width: tableViewWidth, height: tableViewHeight))
+        self.tableView = UITableView.init(frame: CGRect.init(x: Constants.tableViewX, y: Constants.tableViewY, width: tableViewWidth, height: tableViewHeight), style: .plain)
         
         //Confirming to datasource and delegate
         self.tableView?.dataSource = self
@@ -74,10 +75,27 @@ class ViewController: UIViewController {
             !self.view.subviews.contains(tableViewObject) {
             self.view.addSubview(tableViewObject)
         }
+        self.tableView?.reloadData()
+
         
         
         tableView?.register(TableViewCell.self, forCellReuseIdentifier: TableViewCell.Constants.identifier)
-        self.tableView?.reloadData()
+        
+        tableView?.estimatedRowHeight = 120.0
+        tableView?.rowHeight = UITableView.automaticDimension
+        
+        
+        addTableViewConstraints()
+
+
+    }
+    
+    func addTableViewConstraints() {
+        tableView?.translatesAutoresizingMaskIntoConstraints = false
+        tableView?.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        tableView?.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        tableView?.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        tableView?.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
     }
     
     /**
@@ -106,7 +124,7 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
         guard let tableViewCell = tableView.dequeueReusableCell(withIdentifier: TableViewCell.Constants.identifier, for: indexPath) as? TableViewCell else {
             return UITableViewCell()
         }
-        tableViewCell.configureSubviews()
+        
         tableViewCell.assignData(tableViewCellModel: viewModel.tableViewCellViewModels[indexPath.row])
         return tableViewCell
     }
