@@ -50,21 +50,35 @@ class TableViewCellViewModel {
     var title: Dynamic<String> = Dynamic("")
     var description: Dynamic<String> = Dynamic("")
     
-    var imageData: Dynamic<Data> = Dynamic(Data.init())
+    var imageData: Dynamic<Data> = Dynamic(nil)
     var imageDownloaded: Dynamic<Bool> = Dynamic(false)
+    var rowDetail: RowDetails?
     
-    init(rowDetail: RowDetails) {
-        
-        self.imageURL = Dynamic(rowDetail.imageURL)
-        self.title = Dynamic(rowDetail.titleValue)
-        self.description = Dynamic(rowDetail.descriptionValue)
-        updateValues(rowDetail: rowDetail)
+    
+    init() {
+        self.imageURL = Dynamic("")
+        self.title = Dynamic("")
+        self.description = Dynamic("")
+        self.imageData = Dynamic(nil)
+        self.imageDownloaded = Dynamic(false)
     }
     
-    func updateValues(rowDetail: RowDetails) {
+    init(rowDetail: RowDetails) {
+        self.rowDetail = rowDetail
         self.imageURL.value = rowDetail.imageURL
         self.title.value = rowDetail.titleValue
         self.description.value = rowDetail.descriptionValue
+        self.imageData.value = nil
+        self.imageDownloaded.value = false
+
+    }
+    
+    func updateValues(rowDetail: RowDetails?) {
+        self.rowDetail = rowDetail
+        self.imageURL.value = rowDetail?.imageURL
+        self.title.value = rowDetail?.titleValue
+        self.description.value = rowDetail?.descriptionValue
+        
         
         if URLInfo_DataObjects.shared.isRefreshing == true {
             self.imageDownloaded.value = false

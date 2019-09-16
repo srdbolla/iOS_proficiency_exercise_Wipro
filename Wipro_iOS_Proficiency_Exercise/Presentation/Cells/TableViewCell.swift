@@ -16,7 +16,8 @@ class TableViewCell: UITableViewCell {
     
     var imageActivityIndicator: UIActivityIndicatorView?
     
-    var tableViewCellModel: TableViewCellViewModel?
+    var tableViewCellModel: TableViewCellViewModel = TableViewCellViewModel.init()
+    
     
     /**
      Constants
@@ -28,11 +29,12 @@ class TableViewCell: UITableViewCell {
         static let multiplerValue: CGFloat = 1.0
         static let constantValue: CGFloat = 0.0
         
-        static let edgesAnchorConstantValue: CGFloat = 5.0
+        static let edgesAnchorConstantValue: CGFloat = 0.0
         
         static let identifier: String = "TableViewCell"
         
         static let noImageName: String = "no_image"
+        static let defaultTextValue: String = "Default"
         static let error404ImageName: String = "404_error"
         
     }
@@ -46,6 +48,7 @@ class TableViewCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         configureSubviewsAndConstraints()
+        self.assignData()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -58,77 +61,62 @@ class TableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
-    func assignValues(tableViewCellModel: TableViewCellViewModel?) {
-        self.titleLabel?.text = tableViewCellModel?.title.value
-        self.descriptionLabel?.text = tableViewCellModel?.description.value
-        downloadAndDisplayImage(tableViewCellModel: tableViewCellModel)
+    func assignValues() {
+        self.titleLabel?.text = self.tableViewCellModel.title.value
+        self.descriptionLabel?.text = self.tableViewCellModel.description.value
+        self.cellImageView?.image = UIImage.init(data: self.tableViewCellModel.imageData.value ?? Data())
     }
     
-    func assignData(tableViewCellModel: TableViewCellViewModel?) {
-        assignValues(tableViewCellModel: tableViewCellModel)
+    
+    func assignData() {
+        assignValues()
         
-        tableViewCellModel?.imageURL.bind { (imageURL) in
+        self.tableViewCellModel.title.bind({ [weak self] (titleValue) in
+            self?.titleLabel?.text = titleValue
+        })
+        
+        self.tableViewCellModel.description.bind({ [weak self] (descriptionValue) in
+            self?.descriptionLabel?.text = descriptionValue
+        })
+        
+        self.tableViewCellModel.imageURL.bind { [weak self] (imageURL) in
             DispatchQueue.main.async {
-                self.downloadAndDisplayImage(tableViewCellModel: tableViewCellModel)
+                self?.downloadAndDisplayImage(tableViewCellModel: self?.tableViewCellModel)
             }
         }
-
-        tableViewCellModel?.title.bind({ [weak self] (titleValue) in
-            DispatchQueue.main.async {
-                self?.titleLabel?.text = titleValue ?? "No title from server"
-            }
-        })
-
-        tableViewCellModel?.description.bind({ [weak self] (descriptionValue) in
-            DispatchQueue.main.async {
-                self?.descriptionLabel?.text = descriptionValue ?? "No description from server"
-            }
-        })
     }
     
     func downloadAndDisplayImage(tableViewCellModel: TableViewCellViewModel?) {
         
-        if tableViewCellModel?.imageDownloaded.value == false {
-            imageActivityIndicator?.color = UIColor.black
-            imageActivityIndicator?.startAnimating()
-            imageActivityIndicator?.isHidden = false
-
-            URLInfo_DataObjects.shared.downloadImage(from: tableViewCellModel?.imageURL.value ?? "", completion: { [weak self] (data, error) in
-                
-                tableViewCellModel?.imageDownloaded.value = true
-                tableViewCellModel?.imageData.value = data
-                
-                guard error == nil else {
-                    self?.stopActivityIndicatorAndAssignImageView(with: UIImage.init(named: Constants.error404ImageName), self)
-                    return
-                }
-                
-                guard let imageData = data else {
-                    self?.stopActivityIndicatorAndAssignImageView(with: UIImage.init(named: Constants.noImageName), self)
-                    return
-                }
-                
-                guard let imageFromData = UIImage.init(data: imageData) else {
-                    self?.stopActivityIndicatorAndAssignImageView(with: UIImage.init(named: Constants.error404ImageName), self)
-                    return
-                }
-                
-                self?.stopActivityIndicatorAndAssignImageView(with: imageFromData, self)
-            })
-        } else {
-            guard let imageData = tableViewCellModel?.imageData.value else {
-                self.stopActivityIndicatorAndAssignImageView(with: UIImage.init(named: Constants.noImageName), self)
+        imageActivityIndicator?.color = UIColor.black
+        imageActivityIndicator?.startAnimating()
+        imageActivityIndicator?.isHidden = false
+        URLInfo_DataObjects.shared.downloadImage(from: self.tableViewCellModel.imageURL.value ?? "", completion: { [weak self] (data, error) in
+            
+            self?.tableViewCellModel.imageDownloaded.value = true
+            self?.tableViewCellModel.imageData.value = data
+            
+            guard error == nil else {
+                self?.stopActivityIndicatorAndAssignImageView(with: UIImage.init(named: Constants.error404ImageName), self)
                 return
             }
             
-            guard let imageFromData = UIImage.init(data: imageData) else {
-                self.stopActivityIndicatorAndAssignImageView(with: UIImage.init(named: Constants.error404ImageName), self)
-                return
-            }
-            
-            self.stopActivityIndicatorAndAssignImageView(with: imageFromData, self)
-
+            self?.stopActivityIndicatorAndDisplayImages(imageData: data)
+        })
+    }
+    
+    func stopActivityIndicatorAndDisplayImages(imageData: Data?) {
+        guard let nonNilImageData = imageData else {
+            self.stopActivityIndicatorAndAssignImageView(with: UIImage.init(named: Constants.noImageName), self)
+            return
         }
+        
+        guard let imageFromData = UIImage.init(data: nonNilImageData) else {
+            self.stopActivityIndicatorAndAssignImageView(with: UIImage.init(named: Constants.error404ImageName), self)
+            return
+        }
+        
+        self.stopActivityIndicatorAndAssignImageView(with: imageFromData, self)
     }
     
     func stopActivityIndicatorAndAssignImageView(with image: UIImage?, _ weakSelf: TableViewCell?) {
@@ -143,8 +131,8 @@ class TableViewCell: UITableViewCell {
 extension TableViewCell {
     func configureSubviewsAndConstraints() {
         initializeVariablesAndAddToView()
-        addToView()
         initializeConstraintsForVariables()
+        addToView()
         configureImageViewConstraints()
         configureTitleLabelConstraints()
         configureDescriptionLabelConstraints()
@@ -163,22 +151,25 @@ extension TableViewCell {
     func addToView() {
         if let nonNilCellImageView = cellImageView,
             !self.contentView.contains(nonNilCellImageView) {
-            self.contentView.addSubview(cellImageView ?? nonNilCellImageView)
+            self.contentView.addSubview(nonNilCellImageView)
+            
+            if let nonNilImageActivityIndicator = imageActivityIndicator,
+                !nonNilCellImageView.contains(nonNilImageActivityIndicator) {
+                self.cellImageView?.addSubview(nonNilImageActivityIndicator)
+            }
         }
         if let nonNilTitleLabel = titleLabel,
             !self.contentView.contains(nonNilTitleLabel) {
-            self.contentView.addSubview(titleLabel ?? nonNilTitleLabel)
-            nonNilTitleLabel.numberOfLines = 0
+            titleLabel?.numberOfLines = 0
+
+            self.contentView.addSubview(nonNilTitleLabel)
         }
         if let nonNilDescriptionLabel = descriptionLabel,
             !self.contentView.contains(nonNilDescriptionLabel) {
-            self.contentView.addSubview(descriptionLabel ?? nonNilDescriptionLabel)
-            nonNilDescriptionLabel.numberOfLines = 0
+            descriptionLabel?.numberOfLines = 0
+            self.contentView.addSubview(nonNilDescriptionLabel)
         }
-        if let nonNilImageActivityIndicator = imageActivityIndicator,
-            !self.contentView.contains(nonNilImageActivityIndicator) {
-            self.contentView.addSubview(imageActivityIndicator ?? nonNilImageActivityIndicator)
-        }
+        
     }
     
     func initializeConstraintsForVariables() {
@@ -196,6 +187,10 @@ extension TableViewCell {
             nonNilCellImageView.widthAnchor.constraint(equalToConstant: Constants.imageViewWidth).isActive = true
             nonNilCellImageView.heightAnchor.constraint(equalToConstant: Constants.imageViewHeight).isActive = true
             nonNilCellImageView.topAnchor.constraint(greaterThanOrEqualTo: marginGuide.topAnchor, constant: Constants.edgesAnchorConstantValue).isActive = true
+            if let nonNilTitleLabel = titleLabel {
+                
+                nonNilCellImageView.bottomAnchor.constraint(equalTo: nonNilTitleLabel.topAnchor, constant: Constants.edgesAnchorConstantValue).isActive = true
+            }
             
         }
     }
@@ -208,15 +203,9 @@ extension TableViewCell {
             nonNilTitleLabel.leadingAnchor.constraint(equalTo: marginGuide.leadingAnchor, constant: Constants.edgesAnchorConstantValue).isActive = true
             nonNilTitleLabel.trailingAnchor.constraint(equalTo: marginGuide.trailingAnchor, constant: Constants.edgesAnchorConstantValue).isActive = true
             
-            if let nonNilCellImageView = cellImageView {
-                nonNilTitleLabel.topAnchor.constraint(equalTo: nonNilCellImageView.bottomAnchor, constant: Constants.edgesAnchorConstantValue).isActive = true
-            }
             if let nonNilDescriptionLabel = descriptionLabel {
                 nonNilTitleLabel.bottomAnchor.constraint(equalTo: nonNilDescriptionLabel.topAnchor, constant: Constants.edgesAnchorConstantValue).isActive = true
             }
-            
-            let widthConstant = UIScreen.main.bounds.width - ((Constants.edgesAnchorConstantValue*2))
-            nonNilTitleLabel.widthAnchor.constraint(equalToConstant: widthConstant).isActive = true
         }
     }
     
@@ -225,8 +214,7 @@ extension TableViewCell {
             let marginGuide = contentView.layoutMarginsGuide
             if let nonNilTitleLabel = self.titleLabel {
                 nonNilDescriptionLabel.leadingAnchor.constraint(equalTo: nonNilTitleLabel.leadingAnchor).isActive = true
-                nonNilDescriptionLabel.trailingAnchor.constraint(equalTo: nonNilTitleLabel.trailingAnchor).isActive = true
-                nonNilDescriptionLabel.widthAnchor.constraint(equalTo: nonNilTitleLabel.widthAnchor).isActive = true
+                nonNilDescriptionLabel.trailingAnchor.constraint(equalTo: nonNilTitleLabel.trailingAnchor).isActive = true                
             }
             
             nonNilDescriptionLabel.bottomAnchor.constraint(equalTo: marginGuide.bottomAnchor, constant: Constants.edgesAnchorConstantValue).isActive = true

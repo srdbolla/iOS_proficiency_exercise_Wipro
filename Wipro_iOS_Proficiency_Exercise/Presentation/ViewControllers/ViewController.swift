@@ -87,10 +87,11 @@ class ViewController: UIViewController {
         }
         self.tableView?.reloadData()
 
-        tableView?.register(TableViewCell.self, forCellReuseIdentifier: TableViewCell.Constants.identifier)
-        
         tableView?.estimatedRowHeight = 120.0
         tableView?.rowHeight = UITableView.automaticDimension
+
+        tableView?.register(TableViewCell.self, forCellReuseIdentifier: TableViewCell.Constants.identifier)
+        
         
         addTableViewConstraints()
         self.tableView?.addSubview(refreshControl)
@@ -138,9 +139,10 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
         guard let tableViewCell = tableView.dequeueReusableCell(withIdentifier: TableViewCell.Constants.identifier, for: indexPath) as? TableViewCell else {
             return UITableViewCell()
         }
+        tableViewCell.tableViewCellModel.updateValues(rowDetail: self.viewModel.tableViewCellViewModels[indexPath.row].rowDetail)
         
-        tableViewCell.assignData(tableViewCellModel: viewModel.tableViewCellViewModels[indexPath.row])
         return tableViewCell
     }
+    
 }
 
