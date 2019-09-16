@@ -118,10 +118,8 @@ class ViewController: UIViewController {
      Method to handle refresh functionality
     */
     @objc func handleRefresh(refreshControl: UIRefreshControl) {
-        URLInfo_DataObjects.shared.isRefreshing = true
         configureViewModel { _ in
             refreshControl.endRefreshing()
-            URLInfo_DataObjects.shared.isRefreshing = false
         }
     }
     

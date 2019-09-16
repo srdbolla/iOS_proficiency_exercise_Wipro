@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		540D4E14232F720000E69EB2 /* TableViewCellModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 540D4E13232F720000E69EB2 /* TableViewCellModelTests.swift */; };
 		544795C4232A229000E00ADD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 544795C3232A229000E00ADD /* AppDelegate.swift */; };
 		544795C6232A229000E00ADD /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 544795C5232A229000E00ADD /* ViewController.swift */; };
 		544795CB232A229300E00ADD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 544795CA232A229300E00ADD /* Assets.xcassets */; };
@@ -40,6 +41,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		540D4E13232F720000E69EB2 /* TableViewCellModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCellModelTests.swift; sourceTree = "<group>"; };
 		544795C0232A229000E00ADD /* Wipro_iOS_Proficiency_Exercise.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Wipro_iOS_Proficiency_Exercise.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		544795C3232A229000E00ADD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		544795C5232A229000E00ADD /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -86,6 +88,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		540D4E12232F71DB00E69EB2 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				540D4E13232F720000E69EB2 /* TableViewCellModelTests.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		544795B7232A229000E00ADD = {
 			isa = PBXGroup;
 			children = (
@@ -121,6 +131,7 @@
 			isa = PBXGroup;
 			children = (
 				544795D8232A229300E00ADD /* Wipro_iOS_Proficiency_ExerciseTests.swift */,
+				540D4E12232F71DB00E69EB2 /* Model */,
 				544795DA232A229300E00ADD /* Info.plist */,
 			);
 			path = Wipro_iOS_Proficiency_ExerciseTests;
@@ -354,6 +365,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				544795D9232A229300E00ADD /* Wipro_iOS_Proficiency_ExerciseTests.swift in Sources */,
+				540D4E14232F720000E69EB2 /* TableViewCellModelTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
