@@ -15,6 +15,9 @@ class ViewController: UIViewController {
     */
     var tableView: UITableView?
     
+    /**
+     refresh control variable to handle refresh
+    */
     lazy var refreshControl: UIRefreshControl = {
         let refreshControl: UIRefreshControl = UIRefreshControl.init()
         refreshControl.addTarget(self, action: #selector(handleRefresh(refreshControl:)), for: UIControl.Event.valueChanged)
@@ -22,6 +25,9 @@ class ViewController: UIViewController {
         return refreshControl
     }()
     
+    /**
+     ViewModel
+    */
     var viewModel = ViewModel.shared
     
     /**
@@ -34,7 +40,9 @@ class ViewController: UIViewController {
         static let tableViewX: CGFloat = 0.0
     }
     
-
+    /**
+     Existing methods
+    */
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -43,8 +51,13 @@ class ViewController: UIViewController {
         configureViewModel {_ in }
     }
     
+    
+    // Custom Methods
+    /**
+     Method to configure ViewModel-> to load content from jsona nd refresh UI
+    */
     func configureViewModel(_ completion: @escaping (Bool) -> Void) {
-        viewModel.callAssignDataCompletionBlock { [weak self] (boolean) in
+        viewModel.callAndAssignDataCompletionBlock { [weak self] (boolean) in
             if boolean == true {
                 DispatchQueue.main.async {
                     self?.tableView?.reloadData()
@@ -57,6 +70,9 @@ class ViewController: UIViewController {
         }
     }
     
+    /**
+     Method to configure navigationBar title
+     */
     func configureNavigationBar() {
         viewModel.titleValue.bind { [weak self] (titleValue) in
             DispatchQueue.main.async {
@@ -87,6 +103,7 @@ class ViewController: UIViewController {
         }
         self.tableView?.reloadData()
 
+        //To dynamically update tableViewCell height based on cell content
         tableView?.estimatedRowHeight = 120.0
         tableView?.rowHeight = UITableView.automaticDimension
 
@@ -97,6 +114,9 @@ class ViewController: UIViewController {
         self.tableView?.addSubview(refreshControl)
     }
     
+    /**
+     Method to handle refresh functionality
+    */
     @objc func handleRefresh(refreshControl: UIRefreshControl) {
         URLInfo_DataObjects.shared.isRefreshing = true
         configureViewModel { _ in
@@ -105,6 +125,9 @@ class ViewController: UIViewController {
         }
     }
     
+    /**
+     Adding tableView constraints
+    */
     func addTableViewConstraints() {
         tableView?.translatesAutoresizingMaskIntoConstraints = false
         tableView?.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
@@ -126,6 +149,8 @@ class ViewController: UIViewController {
     }
 }
 
+
+ // UITableViewDataSource and UITableViewDelegate methods 
 extension ViewController: UITableViewDelegate, UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1

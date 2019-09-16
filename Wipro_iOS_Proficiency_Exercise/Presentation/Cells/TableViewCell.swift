@@ -8,8 +8,12 @@
 
 import UIKit
 
+
 class TableViewCell: UITableViewCell {
 
+    /**
+     Variables
+    */
     var cellImageView: UIImageView?
     var titleLabel: UILabel?
     var descriptionLabel: UILabel?
@@ -39,6 +43,9 @@ class TableViewCell: UITableViewCell {
         
     }
     
+    /**
+     Existing methods
+    */
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -48,7 +55,7 @@ class TableViewCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         configureSubviewsAndConstraints()
-        self.assignData()
+        self.initializeAndBindDataToUI()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -61,15 +68,22 @@ class TableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
-    func assignValues() {
+    
+    /// Custom Methods
+    /**
+        Method to initialize the tableViewCell variable values
+     */
+    func initializeTableViewCellVariableValues() {
         self.titleLabel?.text = self.tableViewCellModel.title.value
         self.descriptionLabel?.text = self.tableViewCellModel.description.value
-        self.cellImageView?.image = UIImage.init(data: self.tableViewCellModel.imageData.value ?? Data())
+        self.cellImageView?.image = UIImage.init(named: Constants.noImageName)
     }
     
-    
-    func assignData() {
-        assignValues()
+    /**
+     Method to initiazeAndbind the data to UI
+    */
+    func initializeAndBindDataToUI() {
+        initializeTableViewCellVariableValues()
         
         self.tableViewCellModel.title.bind({ [weak self] (titleValue) in
             self?.titleLabel?.text = titleValue
@@ -86,16 +100,14 @@ class TableViewCell: UITableViewCell {
         }
     }
     
+    /**
+     Method to download and display the images with activity indicator
+    */
     func downloadAndDisplayImage(tableViewCellModel: TableViewCellViewModel?) {
-        
         imageActivityIndicator?.color = UIColor.black
         imageActivityIndicator?.startAnimating()
         imageActivityIndicator?.isHidden = false
         URLInfo_DataObjects.shared.downloadImage(from: self.tableViewCellModel.imageURL.value ?? "", completion: { [weak self] (data, error) in
-            
-            self?.tableViewCellModel.imageDownloaded.value = true
-            self?.tableViewCellModel.imageData.value = data
-            
             guard error == nil else {
                 self?.stopActivityIndicatorAndAssignImageView(with: UIImage.init(named: Constants.error404ImageName), self)
                 return
@@ -105,6 +117,10 @@ class TableViewCell: UITableViewCell {
         })
     }
     
+    
+    /**
+     Method to stop activity indicator and to display different images based on various errors and data
+    */
     func stopActivityIndicatorAndDisplayImages(imageData: Data?) {
         guard let nonNilImageData = imageData else {
             self.stopActivityIndicatorAndAssignImageView(with: UIImage.init(named: Constants.noImageName), self)
@@ -119,6 +135,9 @@ class TableViewCell: UITableViewCell {
         self.stopActivityIndicatorAndAssignImageView(with: imageFromData, self)
     }
     
+    /**
+     Method to stop activity indicator and to assign imageView
+    */
     func stopActivityIndicatorAndAssignImageView(with image: UIImage?, _ weakSelf: TableViewCell?) {
         DispatchQueue.main.async {
             weakSelf?.cellImageView?.image = image
@@ -129,26 +148,34 @@ class TableViewCell: UITableViewCell {
 }
 
 extension TableViewCell {
+    
+    /**
+     Method to configure subviews, and their Constraints
+    */
     func configureSubviewsAndConstraints() {
-        initializeVariablesAndAddToView()
-        initializeConstraintsForVariables()
-        addToView()
+        initializeVariables()
+        initializeAutoresizingMaskIntoConstraints()
+        addUILabelsAndImageToView()
         configureImageViewConstraints()
         configureTitleLabelConstraints()
         configureDescriptionLabelConstraints()
         configureImageActivityIndicatorView()
     }
     
-    func initializeVariablesAndAddToView() {
+    /**
+     Method to initialize variables
+    */
+    func initializeVariables() {
         self.cellImageView = UIImageView()
         self.titleLabel = UILabel()
         self.descriptionLabel = UILabel()
         self.imageActivityIndicator = UIActivityIndicatorView.init()
-        
-        
     }
     
-    func addToView() {
+    /**
+     Method to add Images and labels to the contentView
+    */
+    func addUILabelsAndImageToView() {
         if let nonNilCellImageView = cellImageView,
             !self.contentView.contains(nonNilCellImageView) {
             self.contentView.addSubview(nonNilCellImageView)
@@ -169,16 +196,21 @@ extension TableViewCell {
             descriptionLabel?.numberOfLines = 0
             self.contentView.addSubview(nonNilDescriptionLabel)
         }
-        
     }
     
-    func initializeConstraintsForVariables() {
+    /**
+     Method to initialize auto resizing mask into constraints
+    */
+    func initializeAutoresizingMaskIntoConstraints() {
         cellImageView?.translatesAutoresizingMaskIntoConstraints = false
         titleLabel?.translatesAutoresizingMaskIntoConstraints = false
         descriptionLabel?.translatesAutoresizingMaskIntoConstraints = false
         imageActivityIndicator?.translatesAutoresizingMaskIntoConstraints = false
     }
     
+    /**
+     Method to configure imageView constraints
+    */
     func configureImageViewConstraints() {
         if let nonNilCellImageView = cellImageView {
             let marginGuide = contentView.layoutMarginsGuide
@@ -191,11 +223,12 @@ extension TableViewCell {
                 
                 nonNilCellImageView.bottomAnchor.constraint(equalTo: nonNilTitleLabel.topAnchor, constant: Constants.edgesAnchorConstantValue).isActive = true
             }
-            
         }
     }
     
-    
+    /**
+     Method to configure titlelabel constraints
+    */
     func configureTitleLabelConstraints() {
         if let nonNilTitleLabel = titleLabel {
             let marginGuide = contentView.layoutMarginsGuide
@@ -209,6 +242,9 @@ extension TableViewCell {
         }
     }
     
+    /**
+     Method to configure descriptionLabel constraints
+     */
     func configureDescriptionLabelConstraints() {
         if let nonNilDescriptionLabel = self.descriptionLabel {
             let marginGuide = contentView.layoutMarginsGuide
@@ -221,6 +257,9 @@ extension TableViewCell {
         }
     }
     
+    /**
+     Method to configure image activity indicator constraints
+     */
     func configureImageActivityIndicatorView() {
         if let nonImageActivityIndicator = self.imageActivityIndicator,
             let nonNilCellImageView = cellImageView {

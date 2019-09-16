@@ -95,10 +95,16 @@ class URLInfo_DataObjects {
         }
     }
     
+    /**
+     Asynchronous method to get the Data from URL using URLSession
+    */
     func getData(from url: URL, completion: @escaping (Data?, URLResponse?, Error?) -> ()) {
         URLSession.shared.dataTask(with: url, completionHandler: completion).resume()
     }
     
+    /**
+     Method to download image from urlString -> Returns Data
+    */
     func downloadImage(from urlString: String, completion: @escaping (Data?, Error?)-> Void) {
         if let url = URL.init(string: urlString) {
             URLInfo_DataObjects.shared.getData(from: url) { (data, response, error) in

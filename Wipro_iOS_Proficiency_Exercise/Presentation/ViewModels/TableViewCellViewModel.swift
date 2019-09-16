@@ -8,80 +8,43 @@
 
 import Foundation
 
-extension RowDetails: TableViewCellModelDelegate {
-    var imageURL: String {
-        get {
-            return imageHref ?? ""
-        }
-        set {
-            imageHref = newValue
-        }
-    }
-    
-    var titleValue: String {
-        get {
-            return title ?? ""
-        }
-        set {
-            title = newValue
-        }
-    }
-    
-    var descriptionValue: String {
-        get {
-            return description ?? ""
-        }
-        set {
-            description = newValue
-        }
-    }
-}
-    
-    
-protocol TableViewCellModelDelegate {
-    var imageURL: String {get set}
-    var titleValue: String {get set}
-    var descriptionValue: String {get set}
-}
-
+/**
+ ViewModel for TableViewCell
+ */
 class TableViewCellViewModel {
     
+    /**
+     Variables
+    */
     var imageURL: Dynamic<String> = Dynamic("")
     var title: Dynamic<String> = Dynamic("")
     var description: Dynamic<String> = Dynamic("")
     
-    var imageData: Dynamic<Data> = Dynamic(nil)
-    var imageDownloaded: Dynamic<Bool> = Dynamic(false)
     var rowDetail: RowDetails?
     
-    
+    /**
+     Initializers
+    */
     init() {
         self.imageURL = Dynamic("")
         self.title = Dynamic("")
         self.description = Dynamic("")
-        self.imageData = Dynamic(nil)
-        self.imageDownloaded = Dynamic(false)
     }
     
     init(rowDetail: RowDetails) {
         self.rowDetail = rowDetail
-        self.imageURL.value = rowDetail.imageURL
-        self.title.value = rowDetail.titleValue
-        self.description.value = rowDetail.descriptionValue
-        self.imageData.value = nil
-        self.imageDownloaded.value = false
-
+        self.imageURL.value = rowDetail.imageHref ?? ""
+        self.title.value = rowDetail.title ?? ""
+        self.description.value = rowDetail.description ?? ""
     }
     
+    /**
+     Method to update values
+    */
     func updateValues(rowDetail: RowDetails?) {
         self.rowDetail = rowDetail
-        self.imageURL.value = rowDetail?.imageURL
-        self.title.value = rowDetail?.titleValue
-        self.description.value = rowDetail?.descriptionValue
-        
-        
-        if URLInfo_DataObjects.shared.isRefreshing == true {
-            self.imageDownloaded.value = false
-        }
+        self.imageURL.value = rowDetail?.imageHref ?? ""
+        self.title.value = rowDetail?.title ?? ""
+        self.description.value = rowDetail?.description ?? ""
     }
 }

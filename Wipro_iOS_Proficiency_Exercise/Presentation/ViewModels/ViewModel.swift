@@ -8,18 +8,43 @@
 
 import Foundation
 
+/**
+ ViewModel for ViewController
+ */
 class ViewModel {
     
+    /**
+     Singleton instance
+    */
     public static let shared = ViewModel()
+    
+    /**
+     creating completion block for (JSONData?, Error?) -> Void
+    */
     typealias ProviderCompletionBlock = (JSONData?, Error?) -> Void
     
+    /**
+     tableViewCellViewModels Array to be assigned to each tableViewCell viewModel
+    */
     var tableViewCellViewModels: [TableViewCellViewModel] = []
+    
+    /**
+     To dynamically update tableView value for Navigation controller title
+    */
     var titleValue: Dynamic<String> = Dynamic("")
     
+    
+    /**
+     Singleton instance private initializer
+    */
     private init() {
         
     }
     
+    
+    /**
+     Method to return the ProviderCompletionBlock i.e., to fetch json from URL, convert it to JSONData and return the JSONData object
+    */
     private func callProviderCompletionBlock(callCompletionHandlerValue: @escaping ProviderCompletionBlock) {
         URLInfo_DataObjects.shared.getJSONDataObjectFromUrl(completionHandler: {(jsonDataObject, error) in
             if let error = error {
@@ -35,14 +60,17 @@ class ViewModel {
         })
     }
     
-    func callAssignDataCompletionBlock(completionHandler: @escaping (Bool) -> Void) {
+    /**
+     Method to call callProviderCompletionBlock and assign the data to respective variables
+    */
+    func callAndAssignDataCompletionBlock(completionHandler: @escaping (Bool) -> Void) {
         callProviderCompletionBlock { [weak self](jsonData, error) in
             if let jsonDataObject = jsonData {
                 self?.titleValue.value = jsonDataObject.title
                 for rowDetail in jsonDataObject.rows {
                     
                     let tableViewCellModelAlreadyExists = self?.tableViewCellViewModels.contains(where: { (tableViewCellModel) -> Bool in
-                        if (tableViewCellModel.title.value == rowDetail.titleValue) && (tableViewCellModel.description.value == rowDetail.descriptionValue) && (tableViewCellModel.imageURL.value == rowDetail.imageURL) {
+                        if (tableViewCellModel.title.value == (rowDetail.title ?? "")) && (tableViewCellModel.description.value == (rowDetail.description ?? "")) && (tableViewCellModel.imageURL.value == (rowDetail.imageHref ?? "")) {
                             tableViewCellModel.updateValues(rowDetail: rowDetail)
                             return true
                         }
