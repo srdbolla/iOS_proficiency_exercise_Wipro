@@ -34,7 +34,7 @@ class ViewController: UIViewController {
      Constants
      */
     enum Constants {
-        static let errorTitle = "There was an error fetching json. Pull down to refresh"
+        static let errorTitle = "There was an error fetching json. Check your network connectivity and  pull down to refresh."
         static let okString = "OK"
         static let tableViewY: CGFloat = 50.0
         static let tableViewX: CGFloat = 0.0
@@ -119,7 +119,9 @@ class ViewController: UIViewController {
     */
     @objc func handleRefresh(refreshControl: UIRefreshControl) {
         configureViewModel { _ in
-            refreshControl.endRefreshing()
+            DispatchQueue.main.async {
+                refreshControl.endRefreshing()
+            }
         }
     }
     
