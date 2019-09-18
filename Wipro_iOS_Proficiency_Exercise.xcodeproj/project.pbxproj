@@ -23,7 +23,7 @@
 		54479604232A7FFA00E00ADD /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54479603232A7FFA00E00ADD /* ViewModel.swift */; };
 		54479606232A945200E00ADD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 54479605232A945200E00ADD /* Main.storyboard */; };
 		5497760A2330E8F300289D73 /* ViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 549776092330E8F300289D73 /* ViewModelTests.swift */; };
-		5497760C2330ED0000289D73 /* URLInfo_DataObjectsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5497760B2330ED0000289D73 /* URLInfo_DataObjectsTest.swift */; };
+		5497760C2330ED0000289D73 /* URLInfo_NetworkCallTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5497760B2330ED0000289D73 /* URLInfo_NetworkCallTest.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -66,7 +66,7 @@
 		54479603232A7FFA00E00ADD /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
 		54479605232A945200E00ADD /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		549776092330E8F300289D73 /* ViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModelTests.swift; sourceTree = "<group>"; };
-		5497760B2330ED0000289D73 /* URLInfo_DataObjectsTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLInfo_DataObjectsTest.swift; sourceTree = "<group>"; };
+		5497760B2330ED0000289D73 /* URLInfo_NetworkCallTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLInfo_NetworkCallTest.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,7 +98,6 @@
 			isa = PBXGroup;
 			children = (
 				549776092330E8F300289D73 /* ViewModelTests.swift */,
-				5497760B2330ED0000289D73 /* URLInfo_DataObjectsTest.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -117,6 +116,14 @@
 				544795F9232A249E00E00ADD /* URLInfo_NetworkCall.swift */,
 			);
 			path = Networking;
+			sourceTree = "<group>";
+		};
+		54189F6323326908009504C0 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				5497760B2330ED0000289D73 /* URLInfo_NetworkCallTest.swift */,
+			);
+			path = Network;
 			sourceTree = "<group>";
 		};
 		544795B7232A229000E00ADD = {
@@ -154,6 +161,7 @@
 			isa = PBXGroup;
 			children = (
 				544795D8232A229300E00ADD /* Wipro_iOS_Proficiency_ExerciseTests.swift */,
+				54189F6323326908009504C0 /* Network */,
 				54189F5F233265EB009504C0 /* ViewControllers */,
 				540D4E12232F71DB00E69EB2 /* ViewModel */,
 				544795DA232A229300E00ADD /* Info.plist */,
@@ -390,7 +398,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5497760C2330ED0000289D73 /* URLInfo_DataObjectsTest.swift in Sources */,
+				5497760C2330ED0000289D73 /* URLInfo_NetworkCallTest.swift in Sources */,
 				542470E6232FCE97002839F9 /* ViewControllerTests.swift in Sources */,
 				544795D9232A229300E00ADD /* Wipro_iOS_Proficiency_ExerciseTests.swift in Sources */,
 				5497760A2330E8F300289D73 /* ViewModelTests.swift in Sources */,
