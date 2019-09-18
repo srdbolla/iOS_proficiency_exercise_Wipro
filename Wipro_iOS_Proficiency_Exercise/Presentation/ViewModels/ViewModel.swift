@@ -22,7 +22,7 @@ class ViewModel {
     /**
      tableViewCellViewModels Array to be assigned to each tableViewCell viewModel
     */
-    var tableViewCellViewModels: [TableViewCellViewModel] = []
+    var tableViewCellViewModels: Dynamic<[TableViewCellViewModel]> = Dynamic([])
     
     /**
      To dynamically update tableView value for Navigation controller title
@@ -55,9 +55,9 @@ class ViewModel {
         callProviderCompletionBlock { [weak self](jsonData, error) in
             if let jsonDataObject = jsonData {
                 self?.titleValue.value = jsonDataObject.title
+                var tempTableViewCellModelsArray: [TableViewCellViewModel] = []
                 for rowDetail in jsonDataObject.rows {
-                    
-                    let tableViewCellModelAlreadyExists = self?.tableViewCellViewModels.contains(where: { (tableViewCellModel) -> Bool in
+                    let tableViewCellModelAlreadyExists = tempTableViewCellModelsArray.contains(where: { (tableViewCellModel) -> Bool in
                         if (tableViewCellModel.title.value == (rowDetail.title ?? "")) && (tableViewCellModel.description.value == (rowDetail.description ?? "")) && (tableViewCellModel.imageURL.value == (rowDetail.imageHref ?? "")) {
                             tableViewCellModel.updateValues(rowDetail: rowDetail)
                             return true
@@ -67,9 +67,10 @@ class ViewModel {
                     
                     if tableViewCellModelAlreadyExists == false {
                         let tableViewCellModel: TableViewCellViewModel = TableViewCellViewModel.init(rowDetail: rowDetail)
-                        self?.tableViewCellViewModels.append(tableViewCellModel)
+                        tempTableViewCellModelsArray.append(tableViewCellModel)
                     }
                 }
+                self?.tableViewCellViewModels.value = tempTableViewCellModelsArray
                 completionHandler(true)
             } else {
                 completionHandler(false)

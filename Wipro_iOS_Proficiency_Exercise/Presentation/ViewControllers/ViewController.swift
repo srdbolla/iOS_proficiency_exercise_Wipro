@@ -14,6 +14,7 @@ class ViewController: UIViewController {
      Variables
     */
     var tableView: UITableView?
+    var activityIndicatorView: UIActivityIndicatorView?
     
     /**
      refresh control variable to handle refresh
@@ -47,26 +48,35 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         
         configureTableView()
+        configureActivityIndicator()
         configureNavigationBar()
-        configureViewModel {_ in }
+        configureViewModel { }
+        
     }
     
+    func displayActivityIndicator() {
+        self.tableView?.isHidden = true
+        self.activityIndicatorView?.startAnimating()
+        self.activityIndicatorView?.isHidden = false
+    }
+    
+    func hideActivityIndicator() {
+        self.tableView?.isHidden = false
+        self.activityIndicatorView?.stopAnimating()
+        self.activityIndicatorView?.isHidden = true
+    }
     
     // Custom Methods
     /**
      Method to configure ViewModel-> to load content from jsona nd refresh UI
     */
-    func configureViewModel(_ completion: @escaping (Bool) -> Void) {
+    func configureViewModel(_ completion: @escaping () -> Void) {
+        displayActivityIndicator()
         viewModel.callAndAssignDataCompletionBlock { [weak self] (boolean) in
-            if boolean == true {
-                DispatchQueue.main.async {
-                    self?.tableView?.reloadData()
-                    completion(true)
-                }
-            } else {
+            if boolean == false {
                 self?.showErrorAlert(title: Constants.errorTitle, message: "")
-                completion(false)
             }
+            completion()
         }
     }
     
@@ -79,6 +89,24 @@ class ViewController: UIViewController {
                 self?.navigationController?.navigationBar.topItem?.title = titleValue ?? ""
             }
         }
+    }
+    
+    func reloadTableView() {
+        viewModel.tableViewCellViewModels.bind { [weak self] (tableViewCellModels) in
+            DispatchQueue.main.async {
+                self?.hideActivityIndicator()
+                self?.tableView?.reloadData()
+            }
+        }
+    }
+    
+    func configureActivityIndicator() {
+        self.activityIndicatorView = UIActivityIndicatorView.init()
+        if let nonNilActivityIndicatorView = self.activityIndicatorView,
+            !self.view.subviews.contains(nonNilActivityIndicatorView) {
+            self.view.addSubview(nonNilActivityIndicatorView)
+        }
+        addActivityIndicatorConstraints()
     }
     
     /**
@@ -101,8 +129,6 @@ class ViewController: UIViewController {
             !self.view.subviews.contains(tableViewObject) {
             self.view.addSubview(tableViewObject)
         }
-        self.tableView?.reloadData()
-
         //To dynamically update tableViewCell height based on cell content
         tableView?.estimatedRowHeight = 120.0
         tableView?.rowHeight = UITableView.automaticDimension
@@ -112,13 +138,15 @@ class ViewController: UIViewController {
         
         addTableViewConstraints()
         self.tableView?.addSubview(refreshControl)
+        
+        reloadTableView()
     }
     
     /**
      Method to handle refresh functionality
     */
     @objc func handleRefresh(refreshControl: UIRefreshControl) {
-        configureViewModel { _ in
+        configureViewModel {
             DispatchQueue.main.async {
                 refreshControl.endRefreshing()
             }
@@ -134,6 +162,12 @@ class ViewController: UIViewController {
         tableView?.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         tableView?.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
         tableView?.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+    }
+    
+    func addActivityIndicatorConstraints() {
+        activityIndicatorView?.translatesAutoresizingMaskIntoConstraints = false
+        activityIndicatorView?.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        activityIndicatorView?.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
     }
     
     /**
@@ -157,14 +191,14 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return viewModel.tableViewCellViewModels.count
+        return viewModel.tableViewCellViewModels.value?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let tableViewCell = tableView.dequeueReusableCell(withIdentifier: TableViewCell.Constants.identifier, for: indexPath) as? TableViewCell else {
             return UITableViewCell()
         }
-        tableViewCell.tableViewCellModel.updateValues(rowDetail: self.viewModel.tableViewCellViewModels[indexPath.row].rowDetail)
+        tableViewCell.tableViewCellModel.updateValues(rowDetail: self.viewModel.tableViewCellViewModels.value?[indexPath.row].rowDetail)
         tableViewCell.selectionStyle = .none
         
         return tableViewCell
