@@ -165,6 +165,7 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
             return UITableViewCell()
         }
         tableViewCell.tableViewCellModel.updateValues(rowDetail: self.viewModel.tableViewCellViewModels[indexPath.row].rowDetail)
+        tableViewCell.selectionStyle = .none
         
         return tableViewCell
     }

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		54189F6123326658009504C0 /* Model_Objects.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54189F6023326658009504C0 /* Model_Objects.swift */; };
 		542470E6232FCE97002839F9 /* ViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 542470E5232FCE97002839F9 /* ViewControllerTests.swift */; };
 		544795C4232A229000E00ADD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 544795C3232A229000E00ADD /* AppDelegate.swift */; };
 		544795C6232A229000E00ADD /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 544795C5232A229000E00ADD /* ViewController.swift */; };
@@ -15,7 +16,7 @@
 		544795D9232A229300E00ADD /* Wipro_iOS_Proficiency_ExerciseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 544795D8232A229300E00ADD /* Wipro_iOS_Proficiency_ExerciseTests.swift */; };
 		544795E4232A229300E00ADD /* Wipro_iOS_Proficiency_ExerciseUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 544795E3232A229300E00ADD /* Wipro_iOS_Proficiency_ExerciseUITests.swift */; };
 		544795F8232A245F00E00ADD /* URLInfo.plist in Resources */ = {isa = PBXBuildFile; fileRef = 544795F7232A245F00E00ADD /* URLInfo.plist */; };
-		544795FA232A249E00E00ADD /* URLInfo_DataObjects.swift in Sources */ = {isa = PBXBuildFile; fileRef = 544795F9232A249E00E00ADD /* URLInfo_DataObjects.swift */; };
+		544795FA232A249E00E00ADD /* URLInfo_NetworkCall.swift in Sources */ = {isa = PBXBuildFile; fileRef = 544795F9232A249E00E00ADD /* URLInfo_NetworkCall.swift */; };
 		544795FD232A2DD900E00ADD /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 544795FC232A2DD900E00ADD /* TableViewCell.swift */; };
 		54479600232A75C500E00ADD /* Dynamic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 544795FF232A75C500E00ADD /* Dynamic.swift */; };
 		54479602232A771600E00ADD /* TableViewCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54479601232A771600E00ADD /* TableViewCellViewModel.swift */; };
@@ -43,6 +44,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		54189F6023326658009504C0 /* Model_Objects.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model_Objects.swift; sourceTree = "<group>"; };
 		542470E5232FCE97002839F9 /* ViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerTests.swift; sourceTree = "<group>"; };
 		544795C0232A229000E00ADD /* Wipro_iOS_Proficiency_Exercise.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Wipro_iOS_Proficiency_Exercise.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		544795C3232A229000E00ADD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -57,7 +59,7 @@
 		544795E3232A229300E00ADD /* Wipro_iOS_Proficiency_ExerciseUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Wipro_iOS_Proficiency_ExerciseUITests.swift; sourceTree = "<group>"; };
 		544795E5232A229300E00ADD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		544795F7232A245F00E00ADD /* URLInfo.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = URLInfo.plist; sourceTree = "<group>"; };
-		544795F9232A249E00E00ADD /* URLInfo_DataObjects.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLInfo_DataObjects.swift; sourceTree = "<group>"; };
+		544795F9232A249E00E00ADD /* URLInfo_NetworkCall.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLInfo_NetworkCall.swift; sourceTree = "<group>"; };
 		544795FC232A2DD900E00ADD /* TableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
 		544795FF232A75C500E00ADD /* Dynamic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dynamic.swift; sourceTree = "<group>"; };
 		54479601232A771600E00ADD /* TableViewCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCellViewModel.swift; sourceTree = "<group>"; };
@@ -95,11 +97,26 @@
 		540D4E12232F71DB00E69EB2 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				542470E5232FCE97002839F9 /* ViewControllerTests.swift */,
 				549776092330E8F300289D73 /* ViewModelTests.swift */,
 				5497760B2330ED0000289D73 /* URLInfo_DataObjectsTest.swift */,
 			);
 			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		54189F5F233265EB009504C0 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				542470E5232FCE97002839F9 /* ViewControllerTests.swift */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		54189F622332671B009504C0 /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				544795F9232A249E00E00ADD /* URLInfo_NetworkCall.swift */,
+			);
+			path = Networking;
 			sourceTree = "<group>";
 		};
 		544795B7232A229000E00ADD = {
@@ -137,6 +154,7 @@
 			isa = PBXGroup;
 			children = (
 				544795D8232A229300E00ADD /* Wipro_iOS_Proficiency_ExerciseTests.swift */,
+				54189F5F233265EB009504C0 /* ViewControllers */,
 				540D4E12232F71DB00E69EB2 /* ViewModel */,
 				544795DA232A229300E00ADD /* Info.plist */,
 			);
@@ -164,8 +182,9 @@
 		544795F2232A232F00E00ADD /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
+				54189F622332671B009504C0 /* Networking */,
 				544795FE232A75B700E00ADD /* Utility */,
-				544795F6232A239300E00ADD /* Model */,
+				544795F6232A239300E00ADD /* Model_Objects */,
 				544795F4232A237300E00ADD /* ViewModels */,
 				544795FB232A2D9C00E00ADD /* Cells */,
 				544795F3232A235F00E00ADD /* ViewControllers */,
@@ -200,12 +219,12 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
-		544795F6232A239300E00ADD /* Model */ = {
+		544795F6232A239300E00ADD /* Model_Objects */ = {
 			isa = PBXGroup;
 			children = (
-				544795F9232A249E00E00ADD /* URLInfo_DataObjects.swift */,
+				54189F6023326658009504C0 /* Model_Objects.swift */,
 			);
-			path = Model;
+			path = Model_Objects;
 			sourceTree = "<group>";
 		};
 		544795FB232A2D9C00E00ADD /* Cells */ = {
@@ -356,8 +375,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				54189F6123326658009504C0 /* Model_Objects.swift in Sources */,
 				54479602232A771600E00ADD /* TableViewCellViewModel.swift in Sources */,
-				544795FA232A249E00E00ADD /* URLInfo_DataObjects.swift in Sources */,
+				544795FA232A249E00E00ADD /* URLInfo_NetworkCall.swift in Sources */,
 				54479600232A75C500E00ADD /* Dynamic.swift in Sources */,
 				544795FD232A2DD900E00ADD /* TableViewCell.swift in Sources */,
 				544795C6232A229000E00ADD /* ViewController.swift in Sources */,

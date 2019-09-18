@@ -9,9 +9,9 @@
 import XCTest
 @testable import Wipro_iOS_Proficiency_Exercise
 
-class URLInfo_DataObjectsTest: XCTestCase {
+class URLInfo_NetworkCallTest: XCTestCase {
 
-    let urlInfo_DataObject: URLInfo_DataObjects = URLInfo_DataObjects.shared
+    let urlInfo_DataObject: URLInfo_NetworkCall = URLInfo_NetworkCall.shared
     
     override func setUp() {
         // Put setup code here. This method is called before the invocation of each test method in the class.

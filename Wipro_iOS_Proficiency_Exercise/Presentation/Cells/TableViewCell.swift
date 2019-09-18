@@ -102,7 +102,7 @@ class TableViewCell: UITableViewCell {
         imageActivityIndicator?.color = UIColor.black
         imageActivityIndicator?.startAnimating()
         imageActivityIndicator?.isHidden = false
-        URLInfo_DataObjects.shared.downloadImage(from: self.tableViewCellModel.imageURL.value ?? "", completion: { [weak self] (data, error) in
+        URLInfo_NetworkCall.shared.downloadImage(from: self.tableViewCellModel.imageURL.value ?? "", completion: { [weak self] (data, error) in
             guard error == nil else {
                 self?.stopActivityIndicatorAndAssignImageView(with: UIImage.init(named: Constants.error404ImageName), self)
                 return

@@ -1,5 +1,5 @@
 //
-//  URLInfo_DataObjects.swift
+//  URLInfo_NetworkCall.swift
 //  Wipro_iOS_Proficiency_Exercise
 //
 //  Created by Sri Divya Bolla on 12/09/19.
@@ -9,38 +9,13 @@
 
 import Foundation
 
-/**
- URLInfo confirming to Codable protocol which will be assigned with URL from URLInfo.plist
- */
-struct URLInfo: Codable {
-    var jsonURL: String
-}
 
-/**
- JSONData is created according to the json structure
- */
-struct JSONData: Codable {
-    var title: String
-    var rows: [RowDetails]
-}
-
-/**
- RowDetails has been created according to the rows structure in json
- */
-struct RowDetails: Codable {
-    var title: String?
-    var description: String?
-    var imageHref: String?
-}
-
-
-
-class URLInfo_DataObjects {
+class URLInfo_NetworkCall {
     
     /**
      Singleton instance
      */
-    static let shared = URLInfo_DataObjects()
+    static let shared = URLInfo_NetworkCall()
     
     /**
      Constants
@@ -105,7 +80,7 @@ class URLInfo_DataObjects {
     */
     func downloadImage(from urlString: String, completion: @escaping (Data?, Error?)-> Void) {
         if let url = URL.init(string: urlString) {
-            URLInfo_DataObjects.shared.getData(from: url) { (data, response, error) in
+            URLInfo_NetworkCall.shared.getData(from: url) { (data, response, error) in
                 completion(data, error)
             }
         } else {

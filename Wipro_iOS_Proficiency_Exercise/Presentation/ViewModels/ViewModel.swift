@@ -46,7 +46,7 @@ class ViewModel {
      Method to return the ProviderCompletionBlock i.e., to fetch json from URL, convert it to JSONData and return the JSONData object
     */
     private func callProviderCompletionBlock(callCompletionHandlerValue: @escaping ProviderCompletionBlock) {
-        URLInfo_DataObjects.shared.getJSONDataObjectFromUrl(completionHandler: {(jsonDataObject, error) in
+        URLInfo_NetworkCall.shared.getJSONDataObjectFromUrl(completionHandler: {(jsonDataObject, error) in
             if let error = error {
                 callCompletionHandlerValue(nil, error)
 
