@@ -28,7 +28,7 @@ class ViewController: UIViewController {
     /**
      ViewModel
     */
-    var viewModel = ViewModel.shared
+    var viewModel = ViewModel()
     
     /**
      Constants

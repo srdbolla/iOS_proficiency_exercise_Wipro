@@ -13,10 +13,6 @@ import Foundation
  */
 class ViewModel {
     
-    /**
-     Singleton instance
-    */
-    public static let shared = ViewModel()
     
     /**
      creating completion block for (JSONData?, Error?) -> Void
@@ -32,14 +28,6 @@ class ViewModel {
      To dynamically update tableView value for Navigation controller title
     */
     var titleValue: Dynamic<String> = Dynamic("")
-    
-    
-    /**
-     Singleton instance private initializer
-    */
-    private init() {
-        
-    }
     
     
     /**
