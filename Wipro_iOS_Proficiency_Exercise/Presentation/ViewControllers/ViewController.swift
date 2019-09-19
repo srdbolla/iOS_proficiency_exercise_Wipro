@@ -50,8 +50,8 @@ class ViewController: UIViewController {
         configureTableView()
         configureActivityIndicator()
         configureNavigationBar()
-        configureViewModel { }
         
+        initialViewModelConfiguration()
     }
     
     func displayActivityIndicator() {
@@ -71,7 +71,6 @@ class ViewController: UIViewController {
      Method to configure ViewModel-> to load content from jsona nd refresh UI
     */
     func configureViewModel(_ completion: @escaping () -> Void) {
-        displayActivityIndicator()
         viewModel.callAndAssignDataCompletionBlock { [weak self] (boolean) in
             if boolean == false {
                 self?.showErrorAlert(title: Constants.errorTitle, message: "")
@@ -149,6 +148,15 @@ class ViewController: UIViewController {
         configureViewModel {
             DispatchQueue.main.async {
                 refreshControl.endRefreshing()
+            }
+        }
+    }
+    
+    func initialViewModelConfiguration() {
+        displayActivityIndicator()
+        configureViewModel {
+            DispatchQueue.main.async {
+                self.hideActivityIndicator()
             }
         }
     }

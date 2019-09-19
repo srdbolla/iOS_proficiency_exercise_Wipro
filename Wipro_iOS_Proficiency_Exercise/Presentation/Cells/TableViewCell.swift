@@ -63,6 +63,10 @@ class TableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        self.cellImageView?.image = nil
+    }
     
     /// Custom Methods
     /**
