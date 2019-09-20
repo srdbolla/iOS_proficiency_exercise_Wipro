@@ -21,7 +21,6 @@
 		54479600232A75C500E00ADD /* Dynamic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 544795FF232A75C500E00ADD /* Dynamic.swift */; };
 		54479602232A771600E00ADD /* TableViewCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54479601232A771600E00ADD /* TableViewCellViewModel.swift */; };
 		54479604232A7FFA00E00ADD /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54479603232A7FFA00E00ADD /* ViewModel.swift */; };
-		54479606232A945200E00ADD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 54479605232A945200E00ADD /* Main.storyboard */; };
 		5497760A2330E8F300289D73 /* ViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 549776092330E8F300289D73 /* ViewModelTests.swift */; };
 		5497760C2330ED0000289D73 /* URLInfo_NetworkCallTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5497760B2330ED0000289D73 /* URLInfo_NetworkCallTest.swift */; };
 /* End PBXBuildFile section */
@@ -64,7 +63,6 @@
 		544795FF232A75C500E00ADD /* Dynamic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dynamic.swift; sourceTree = "<group>"; };
 		54479601232A771600E00ADD /* TableViewCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCellViewModel.swift; sourceTree = "<group>"; };
 		54479603232A7FFA00E00ADD /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
-		54479605232A945200E00ADD /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		549776092330E8F300289D73 /* ViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModelTests.swift; sourceTree = "<group>"; };
 		5497760B2330ED0000289D73 /* URLInfo_NetworkCallTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLInfo_NetworkCallTest.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -221,7 +219,6 @@
 		544795F5232A238300E00ADD /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				54479605232A945200E00ADD /* Main.storyboard */,
 				544795CC232A229300E00ADD /* LaunchScreen.storyboard */,
 			);
 			path = Views;
@@ -358,7 +355,6 @@
 				544795CE232A229300E00ADD /* LaunchScreen.storyboard in Resources */,
 				544795CB232A229300E00ADD /* Assets.xcassets in Resources */,
 				544795F8232A245F00E00ADD /* URLInfo.plist in Resources */,
-				54479606232A945200E00ADD /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
