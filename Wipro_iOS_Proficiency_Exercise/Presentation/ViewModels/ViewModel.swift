@@ -56,6 +56,7 @@ class ViewModel {
             if let jsonDataObject = jsonData {
                 self?.titleValue.value = jsonDataObject.title
                 var tempTableViewCellModelsArray: [TableViewCellViewModel] = []
+                ViewController.downloadedImagesDictionary = [:]
                 for rowDetail in jsonDataObject.rows {
                     let tableViewCellModelAlreadyExists = tempTableViewCellModelsArray.contains(where: { (tableViewCellModel) -> Bool in
                         if (tableViewCellModel.title.value == (rowDetail.title ?? "")) && (tableViewCellModel.description.value == (rowDetail.description ?? "")) && (tableViewCellModel.imageURL.value == (rowDetail.imageHref ?? "")) {

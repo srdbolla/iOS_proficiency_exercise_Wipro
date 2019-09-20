@@ -16,6 +16,10 @@ class ViewController: UIViewController {
     var tableView: UITableView?
     var activityIndicatorView: UIActivityIndicatorView?
     
+    
+    static var downloadedImagesDictionary: [IndexPath: UIImage] = [:]
+
+    
     /**
      refresh control variable to handle refresh
     */
@@ -206,11 +210,38 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
         guard let tableViewCell = tableView.dequeueReusableCell(withIdentifier: TableViewCell.Constants.identifier, for: indexPath) as? TableViewCell else {
             return UITableViewCell()
         }
+        tableViewCell.delegate = self
+        tableViewCell.indexPath = indexPath
         tableViewCell.tableViewCellModel.updateValues(rowDetail: self.viewModel.tableViewCellViewModels.value?[indexPath.row].rowDetail)
+        
+        if ViewController.downloadedImagesDictionary.keys.contains(indexPath) {
+            tableViewCell.cellImageView?.image = ViewController.downloadedImagesDictionary[indexPath]
+        }
+        
         tableViewCell.selectionStyle = .none
         
         return tableViewCell
     }
     
 }
+
+//Confirming to TableViewCellDelegate
+extension ViewController: TableViewCellDelegate {
+    
+    // TableViewCell delegate method
+    func updateCellImageAndReloadAtIndexPath(for tableViewCell: TableViewCell?) {
+        if let nonNilTableViewCell = tableViewCell,
+            let nonNilCellIndexPath = nonNilTableViewCell.indexPath,
+            let visibleIndexPaths: [IndexPath] = self.tableView?.indexPathsForVisibleRows {
+            if visibleIndexPaths.contains(nonNilCellIndexPath) {
+                if ViewController.downloadedImagesDictionary.keys.contains(nonNilCellIndexPath) {
+                    tableViewCell?.cellImageView?.image = ViewController.downloadedImagesDictionary[nonNilCellIndexPath]
+                    tableView?.reloadRows(at: visibleIndexPaths, with: .fade)
+                }
+            }
+        }
+    }
+}
+
+
 

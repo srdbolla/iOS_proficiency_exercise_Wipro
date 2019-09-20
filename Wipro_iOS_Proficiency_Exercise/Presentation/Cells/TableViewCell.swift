@@ -8,6 +8,15 @@
 
 import UIKit
 
+/**
+ Delegate to update based on TableViewCell values
+*/
+protocol TableViewCellDelegate {
+    /**
+     Delegate method to update the image
+     */
+    func updateCellImageAndReloadAtIndexPath(for tableViewCell: TableViewCell?)
+}
 
 class TableViewCell: UITableViewCell {
 
@@ -17,9 +26,9 @@ class TableViewCell: UITableViewCell {
     var cellImageView: UIImageView?
     var titleLabel: UILabel?
     var descriptionLabel: UILabel?
-    
-    var imageActivityIndicator: UIActivityIndicatorView?
-    
+    var indexPath: IndexPath?
+    var delegate: TableViewCellDelegate?
+        
     var tableViewCellModel: TableViewCellViewModel = TableViewCellViewModel.init()
     
     
@@ -27,13 +36,13 @@ class TableViewCell: UITableViewCell {
      Constants
     */
     enum Constants {
-        static let imageViewHeight: CGFloat = 300.0
-        static let imageViewWidth: CGFloat = 300.0
-        
         static let multiplerValue: CGFloat = 1.0
         static let constantValue: CGFloat = 0.0
         
         static let edgesAnchorConstantValue: CGFloat = 0.0
+        
+        static let imageLeadingConstant: CGFloat = 10.0
+        static let imageTrailingConstant: CGFloat = -10.0
         
         static let identifier: String = "TableViewCell"
         
@@ -75,7 +84,7 @@ class TableViewCell: UITableViewCell {
     func initializeTableViewCellVariableValues() {
         self.titleLabel?.text = self.tableViewCellModel.title.value
         self.descriptionLabel?.text = self.tableViewCellModel.description.value
-        self.cellImageView?.image = UIImage.init(named: Constants.noImageName)
+        self.cellImageView?.image = nil
     }
     
     /**
@@ -94,7 +103,10 @@ class TableViewCell: UITableViewCell {
         
         self.tableViewCellModel.imageURL.bind { [weak self] (imageURL) in
             DispatchQueue.main.async {
-                self?.downloadAndDisplayImage(tableViewCellModel: self?.tableViewCellModel)
+                if let nonNilIndexPath = self?.indexPath,
+                    !ViewController.downloadedImagesDictionary.keys.contains(nonNilIndexPath) {
+                    self?.downloadAndDisplayImage(tableViewCellModel: self?.tableViewCellModel)
+                }
             }
         }
     }
@@ -103,15 +115,11 @@ class TableViewCell: UITableViewCell {
      Method to download and display the images with activity indicator
     */
     func downloadAndDisplayImage(tableViewCellModel: TableViewCellViewModel?) {
-        imageActivityIndicator?.color = UIColor.black
-        imageActivityIndicator?.startAnimating()
-        imageActivityIndicator?.isHidden = false
         URLInfo_NetworkCall.shared.downloadImage(from: self.tableViewCellModel.imageURL.value ?? "", completion: { [weak self] (data, error) in
             guard error == nil else {
-                self?.stopActivityIndicatorAndAssignImageView(with: UIImage.init(named: Constants.error404ImageName), self)
+                self?.stopActivityIndicatorAndAssignImageView(with: nil, self)
                 return
             }
-            
             self?.stopActivityIndicatorAndDisplayImages(imageData: data)
         })
     }
@@ -122,12 +130,12 @@ class TableViewCell: UITableViewCell {
     */
     func stopActivityIndicatorAndDisplayImages(imageData: Data?) {
         guard let nonNilImageData = imageData else {
-            self.stopActivityIndicatorAndAssignImageView(with: UIImage.init(named: Constants.noImageName), self)
+            self.stopActivityIndicatorAndAssignImageView(with: nil, self)
             return
         }
         
         guard let imageFromData = UIImage.init(data: nonNilImageData) else {
-            self.stopActivityIndicatorAndAssignImageView(with: UIImage.init(named: Constants.error404ImageName), self)
+            self.stopActivityIndicatorAndAssignImageView(with: nil, self)
             return
         }
         
@@ -139,9 +147,11 @@ class TableViewCell: UITableViewCell {
     */
     func stopActivityIndicatorAndAssignImageView(with image: UIImage?, _ weakSelf: TableViewCell?) {
         DispatchQueue.main.async {
-            weakSelf?.cellImageView?.image = image
-            weakSelf?.imageActivityIndicator?.stopAnimating()
-            weakSelf?.imageActivityIndicator?.isHidden = true
+            if let nonNilIndexPath = self.indexPath,
+                !ViewController.downloadedImagesDictionary.keys.contains(nonNilIndexPath) {
+                ViewController.downloadedImagesDictionary[nonNilIndexPath] = image
+            }
+            weakSelf?.delegate?.updateCellImageAndReloadAtIndexPath(for: weakSelf)
         }
     }
 }
@@ -158,7 +168,6 @@ extension TableViewCell {
         configureImageViewConstraints()
         configureTitleLabelConstraints()
         configureDescriptionLabelConstraints()
-        configureImageActivityIndicatorView()
     }
     
     /**
@@ -168,7 +177,6 @@ extension TableViewCell {
         self.cellImageView = UIImageView()
         self.titleLabel = UILabel()
         self.descriptionLabel = UILabel()
-        self.imageActivityIndicator = UIActivityIndicatorView.init()
     }
     
     /**
@@ -178,11 +186,6 @@ extension TableViewCell {
         if let nonNilCellImageView = cellImageView,
             !self.contentView.contains(nonNilCellImageView) {
             self.contentView.addSubview(nonNilCellImageView)
-            
-            if let nonNilImageActivityIndicator = imageActivityIndicator,
-                !nonNilCellImageView.contains(nonNilImageActivityIndicator) {
-                self.cellImageView?.addSubview(nonNilImageActivityIndicator)
-            }
         }
         if let nonNilTitleLabel = titleLabel,
             !self.contentView.contains(nonNilTitleLabel) {
@@ -204,7 +207,7 @@ extension TableViewCell {
         cellImageView?.translatesAutoresizingMaskIntoConstraints = false
         titleLabel?.translatesAutoresizingMaskIntoConstraints = false
         descriptionLabel?.translatesAutoresizingMaskIntoConstraints = false
-        imageActivityIndicator?.translatesAutoresizingMaskIntoConstraints = false
+//        imageActivityIndicator?.translatesAutoresizingMaskIntoConstraints = false
     }
     
     /**
@@ -215,8 +218,9 @@ extension TableViewCell {
             let marginGuide = contentView.layoutMarginsGuide
             
             nonNilCellImageView.centerXAnchor.constraint(equalTo: marginGuide.centerXAnchor).isActive = true
-            nonNilCellImageView.widthAnchor.constraint(equalToConstant: Constants.imageViewWidth).isActive = true
-            nonNilCellImageView.heightAnchor.constraint(equalToConstant: Constants.imageViewHeight).isActive = true
+            nonNilCellImageView.leadingAnchor.constraint(greaterThanOrEqualTo: marginGuide.leadingAnchor, constant: Constants.imageLeadingConstant).isActive = true
+            nonNilCellImageView.trailingAnchor.constraint(lessThanOrEqualTo: marginGuide.trailingAnchor, constant: Constants.imageTrailingConstant).isActive = true
+            
             nonNilCellImageView.topAnchor.constraint(greaterThanOrEqualTo: marginGuide.topAnchor, constant: Constants.edgesAnchorConstantValue).isActive = true
             if let nonNilTitleLabel = titleLabel {
                 
@@ -255,16 +259,4 @@ extension TableViewCell {
             nonNilDescriptionLabel.bottomAnchor.constraint(equalTo: marginGuide.bottomAnchor, constant: Constants.edgesAnchorConstantValue).isActive = true
         }
     }
-    
-    /**
-     Method to configure image activity indicator constraints
-     */
-    func configureImageActivityIndicatorView() {
-        if let nonImageActivityIndicator = self.imageActivityIndicator,
-            let nonNilCellImageView = cellImageView {
-            nonImageActivityIndicator.centerXAnchor.constraint(equalTo: nonNilCellImageView.centerXAnchor).isActive = true
-            nonImageActivityIndicator.centerYAnchor.constraint(equalTo: nonNilCellImageView.centerYAnchor).isActive = true
-        }
-    }
-    
 }
