@@ -11,7 +11,7 @@ import XCTest
 
 class ViewModelTests: XCTestCase {
 
-    let viewModel: ViewModel = ViewModel.shared
+    let viewModel: ViewModel = ViewModel()
     override func setUp() {
         // Put setup code here. This method is called before the invocation of each test method in the class.
         getJsonAndAssignToRespectiveVariables()
@@ -28,12 +28,14 @@ class ViewModelTests: XCTestCase {
     }
     
     func testVariablesData() {
-        XCTAssert(viewModel.tableViewCellViewModels.count > 0, "viewModel.tableViewCellViewModels count is zero")
+        XCTAssert((viewModel.tableViewCellViewModels.value?.count ?? 0) > 0, "viewModel.tableViewCellViewModels count is zero")
         XCTAssertNotNil(viewModel.titleValue.value, "viewModel.titleValue is nil")
         XCTAssertNotNil((viewModel.titleValue.value?.count ?? 0) > 0 , "viewModel.titleValue is empty")
         
-        for tableViewCellModel in viewModel.tableViewCellViewModels {
-            tableCellViewModelDataTest(tableCellViewModel: tableViewCellModel)
+        if let nonNilTableViewCellViewModels = viewModel.tableViewCellViewModels.value {
+            for tableViewCellModel in nonNilTableViewCellViewModels {
+                tableCellViewModelDataTest(tableCellViewModel: tableViewCellModel)
+            }
         }
     }
     

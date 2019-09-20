@@ -108,8 +108,8 @@ class ViewControllerTests: XCTestCase {
                         XCTAssert(tableViewCell.titleLabel?.text?.count ?? 0 >= 0)
                         XCTAssertNotNil(tableViewCell.descriptionLabel)
                         XCTAssert(tableViewCell.descriptionLabel?.text?.count ?? 0 >= 0)
-                        XCTAssertNotNil(tableViewCell.imageActivityIndicator)
-                        XCTAssert(tableViewCell.imageActivityIndicator?.color == UIColor.black)
+                        
+                        XCTAssert(((tableViewCell.delegate?.updateCellImageAndReloadAtIndexPath(for: tableViewCell)) != nil))
                     }
                 }
             }
