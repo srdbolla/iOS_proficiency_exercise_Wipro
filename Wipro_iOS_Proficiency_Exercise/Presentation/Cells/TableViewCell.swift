@@ -50,6 +50,8 @@ class TableViewCell: UITableViewCell {
         static let defaultTextValue: String = "Default"
         static let error404ImageName: String = "404_error"
         
+        static let noDataAvailableString: String = "No Data Available"
+        
     }
     
     /**
@@ -98,7 +100,14 @@ class TableViewCell: UITableViewCell {
         })
         
         self.tableViewCellModel.description.bind({ [weak self] (descriptionValue) in
-            self?.descriptionLabel?.text = descriptionValue
+            if let nonNilDescriptionValue = descriptionValue,
+                nonNilDescriptionValue != "" {
+                self?.descriptionLabel?.text = descriptionValue
+            } else {
+                if self?.titleLabel?.text == "" {
+                    self?.descriptionLabel?.text = Constants.noDataAvailableString
+                }
+            }
         })
         
         self.tableViewCellModel.imageURL.bind { [weak self] (imageURL) in
